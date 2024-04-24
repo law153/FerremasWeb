@@ -9,6 +9,169 @@ from django.contrib.auth import authenticate,login, logout
 # Create your views here.
 
 
+###Funciones de API
+def obtener_categorias():
+    url_servicio = 'http://127.0.0.1:8001/api/categorias/'
+    respuesta = requests.get(url_servicio)
+    if respuesta.status_code == 200:
+        return respuesta.json()
+    else:
+        return None
+
+def obtener_productos_cate(id_cate):
+    url_servicio = f'http://localhost:8001/api/productos/?categoria={id_cate}'
+    print(url_servicio)
+    respuesta = requests.get(url_servicio)
+    if respuesta.status_code == 200:
+        return respuesta.json()
+    else:
+        return None 
+    
+def obtener_producto(id_prod):
+    url_servicio = f'http://localhost:8001/api/producto/?cod_prod={id_prod}'
+    print(url_servicio)
+    respuesta = requests.get(url_servicio)
+    if respuesta.status_code == 200:
+        return respuesta.json()
+    else:
+        return None 
+    
+def obtener_usuario(correo):
+    url_servicio = f'http://localhost:8001/api/usuario/{correo}'
+    print(url_servicio)
+    respuesta = requests.get(url_servicio)
+    if respuesta.status_code == 200:
+        return respuesta.json()
+    else:
+        return None 
+
+def obtener_venta(usuario, estado):
+    url_servicio = f'http://127.0.0.1:8001/api/filtrar-carrito/?usuario={usuario}&estado={estado}'
+    respuesta = requests.get(url_servicio)
+    if respuesta.status_code == 200:
+        
+        return respuesta.json()
+    else:
+        return None  
+
+def obtener_detallesVenta(venta):
+    url_servicio = f'http://127.0.0.1:8001/api/detalles-carrito/?venta={venta}'
+    respuesta = requests.get(url_servicio)
+    if respuesta.status_code == 200:
+        return respuesta.json()
+    else:
+        return None
+    
+def obtener_detallesId(id):
+    url_servicio = f'http://127.0.0.1:8001/api/detalles-id-carrito/?id_detalle={id}'
+    respuesta = requests.get(url_servicio)
+    if respuesta.status_code == 200:
+        return respuesta.json()
+    else:
+        return None
+    
+def buscar_DetallesCarrito(venta, cod_prod):
+    url_servicio = f'http://127.0.0.1:8001/api/detalles-buscar-carrito/?venta={venta}&producto={cod_prod}'
+    respuesta = requests.get(url_servicio)
+    if respuesta.status_code == 200:
+        return respuesta.json()
+    else:
+        return None
+
+def modificar_total_carrito(id_venta, nuevo_total):
+    url_servicio = f'http://127.0.0.1:8001/api/venta/{id_venta}/'
+    data = {'total': nuevo_total}  # Datos a enviar en la solicitud
+
+    # Realizar la solicitud POST para modificar el total del carrito
+    respuesta = requests.patch(url_servicio, data=data)
+
+    if respuesta.status_code == 200:
+        print('El total del carrito se modificó correctamente.')
+    else:
+        print('Hubo un error al modificar el total del carrito.')
+
+def modificar_estado_carrito(id_venta, estado):
+    url_servicio = f'http://127.0.0.1:8001/api/venta/{id_venta}/'
+    data = {'estado': estado}  # Datos a enviar en la solicitud
+
+    # Realizar la solicitud POST para modificar el total del carrito
+    respuesta = requests.patch(url_servicio, data=data)
+
+    if respuesta.status_code == 200:
+        print('El estado del carrito se modificó correctamente.')
+    else:
+        print('Hubo un error al modificar el estado del carrito.')
+
+
+def crearDetalle(cantidad, subtotal, venta, producto):
+    data = {
+    'cantidad': cantidad,
+    'subtotal': subtotal,
+    'venta': venta,  
+    'producto': producto  
+    }
+
+    url_servicio = 'http://127.0.0.1:8001/api/crear-detalle/'
+
+    respuesta = requests.post(url_servicio, data=data)
+
+    if respuesta.status_code == 201:
+        print('Detalle creado correctamente.')
+    else:
+        print('Error al crear el detalle.')
+
+def crearVenta(fecha_venta, estado, fecha_entrega, total, carrito, usuario):
+
+    data = {
+    'fecha_venta': fecha_venta,
+    'estado': estado,
+    'fecha_entrega': fecha_entrega,  
+    'total': total,
+    'carrito' : carrito,
+    'usuario' : usuario
+    }
+
+    url_servicio = 'http://127.0.0.1:8001/api/crear-venta/'
+
+    respuesta = requests.post(url_servicio, data=data)
+
+    if respuesta.status_code == 201:
+        print('Venta creada correctamente.')
+    else:
+        print('Error al crear la venta.')
+
+def modificar_cantidad_detalle(id_detalle, nueva_cantidad):
+    url_servicio = f'http://127.0.0.1:8001/api/detalle/{id_detalle}/'
+    data = {'cantidad': nueva_cantidad}  # Datos a enviar en la solicitud
+
+    # Realizar la solicitud PUT para modificar la cantidad del detalle
+    respuesta = requests.patch(url_servicio, data=data)
+
+    if respuesta.status_code == 200:
+        print('La cantidad del detalle se modificó correctamente.')
+    else:
+        print('Hubo un error al modificar la cantidad del detalle.')
+
+def modificar_subtotal_detalle(id_detalle, nuevo_subtotal):
+    url_servicio = f'http://127.0.0.1:8001/api/detalle/{id_detalle}/'
+    data = {'subtotal': nuevo_subtotal}  # Datos a enviar en la solicitud
+
+    # Realizar la solicitud PUT para modificar el subtotal del detalle
+    respuesta = requests.patch(url_servicio, data=data)
+
+    if respuesta.status_code == 200:
+        print('El subtotal del detalle se modificó correctamente.')
+    else:
+        print('Hubo un error al modificar el subtotal del detalle.')
+
+def eliminar_detalle(id_detalle):
+    url_servicio = f'http://127.0.0.1:8001/api/delete-detalle/?id_detalle={id_detalle}'
+    respuesta = requests.delete(url_servicio)
+    if respuesta.status_code == 204:
+        print('Detalle eliminado correctamente.')
+    else:
+        print('Error al eliminar el detalle.')
+
 ###Paginas
 
 def mostrarIndex(request):
@@ -91,167 +254,7 @@ def mostrarCarrito(request):
     
     return render(request, 'core/carrito.html',contexto)
 
-def obtener_categorias():
-    url_servicio = 'http://localhost:8000/api/categorias/'
-    respuesta = requests.get(url_servicio)
-    if respuesta.status_code == 200:
-        return respuesta.json()
-    else:
-        return None
 
-def obtener_productos_cate(id_cate):
-    url_servicio = f'http://localhost:8000/api/productos/?categoria={id_cate}'
-    print(url_servicio)
-    respuesta = requests.get(url_servicio)
-    if respuesta.status_code == 200:
-        return respuesta.json()
-    else:
-        return None 
-    
-def obtener_producto(id_prod):
-    url_servicio = f'http://localhost:8000/api/producto/?cod_prod={id_prod}'
-    print(url_servicio)
-    respuesta = requests.get(url_servicio)
-    if respuesta.status_code == 200:
-        return respuesta.json()
-    else:
-        return None 
-    
-def obtener_usuario(correo):
-    url_servicio = f'http://localhost:8000/api/usuario/{correo}'
-    print(url_servicio)
-    respuesta = requests.get(url_servicio)
-    if respuesta.status_code == 200:
-        return respuesta.json()
-    else:
-        return None 
-
-def obtener_venta(usuario, estado):
-    url_servicio = f'http://127.0.0.1:8000/api/filtrar-carrito/?usuario={usuario}&estado={estado}'
-    respuesta = requests.get(url_servicio)
-    if respuesta.status_code == 200:
-        
-        return respuesta.json()
-    else:
-        return None  
-
-def obtener_detallesVenta(venta):
-    url_servicio = f'http://127.0.0.1:8000/api/detalles-carrito/?venta={venta}'
-    respuesta = requests.get(url_servicio)
-    if respuesta.status_code == 200:
-        return respuesta.json()
-    else:
-        return None
-    
-def obtener_detallesId(id):
-    url_servicio = f'http://127.0.0.1:8000/api/detalles-id-carrito/?id_detalle={id}'
-    respuesta = requests.get(url_servicio)
-    if respuesta.status_code == 200:
-        return respuesta.json()
-    else:
-        return None
-    
-def buscar_DetallesCarrito(venta, cod_prod):
-    url_servicio = f'http://127.0.0.1:8000/api/detalles-buscar-carrito/?venta={venta}&producto={cod_prod}'
-    respuesta = requests.get(url_servicio)
-    if respuesta.status_code == 200:
-        return respuesta.json()
-    else:
-        return None
-
-def modificar_total_carrito(id_venta, nuevo_total):
-    url_servicio = f'http://127.0.0.1:8000/api/venta/{id_venta}/'
-    data = {'total': nuevo_total}  # Datos a enviar en la solicitud
-
-    # Realizar la solicitud POST para modificar el total del carrito
-    respuesta = requests.patch(url_servicio, data=data)
-
-    if respuesta.status_code == 200:
-        print('El total del carrito se modificó correctamente.')
-    else:
-        print('Hubo un error al modificar el total del carrito.')
-
-def modificar_estado_carrito(id_venta, estado):
-    url_servicio = f'http://127.0.0.1:8000/api/venta/{id_venta}/'
-    data = {'estado': estado}  # Datos a enviar en la solicitud
-
-    # Realizar la solicitud POST para modificar el total del carrito
-    respuesta = requests.patch(url_servicio, data=data)
-
-    if respuesta.status_code == 200:
-        print('El estado del carrito se modificó correctamente.')
-    else:
-        print('Hubo un error al modificar el estado del carrito.')
-
-
-def crearDetalle(cantidad, subtotal, venta, producto):
-    data = {
-    'cantidad': cantidad,
-    'subtotal': subtotal,
-    'venta': venta,  
-    'producto': producto  
-    }
-
-    url_servicio = 'http://127.0.0.1:8000/api/crear-detalle/'
-
-    respuesta = requests.post(url_servicio, data=data)
-
-    if respuesta.status_code == 201:
-        print('Detalle creado correctamente.')
-    else:
-        print('Error al crear el detalle.')
-
-def crearVenta(fecha_venta, estado, fecha_entrega, total, carrito, usuario):
-
-    data = {
-    'fecha_venta': fecha_venta,
-    'estado': estado,
-    'fecha_entrega': fecha_entrega,  
-    'total': total,
-    'carrito' : carrito,
-    'usuario' : usuario
-    }
-
-    url_servicio = 'http://127.0.0.1:8000/api/crear-venta/'
-
-    respuesta = requests.post(url_servicio, data=data)
-
-    if respuesta.status_code == 201:
-        print('Venta creada correctamente.')
-    else:
-        print('Error al crear la venta.')
-
-def modificar_cantidad_detalle(id_detalle, nueva_cantidad):
-    url_servicio = f'http://127.0.0.1:8000/api/detalle/{id_detalle}/'
-    data = {'cantidad': nueva_cantidad}  # Datos a enviar en la solicitud
-
-    # Realizar la solicitud PUT para modificar la cantidad del detalle
-    respuesta = requests.patch(url_servicio, data=data)
-
-    if respuesta.status_code == 200:
-        print('La cantidad del detalle se modificó correctamente.')
-    else:
-        print('Hubo un error al modificar la cantidad del detalle.')
-
-def modificar_subtotal_detalle(id_detalle, nuevo_subtotal):
-    url_servicio = f'http://127.0.0.1:8000/api/detalle/{id_detalle}/'
-    data = {'subtotal': nuevo_subtotal}  # Datos a enviar en la solicitud
-
-    # Realizar la solicitud PUT para modificar el subtotal del detalle
-    respuesta = requests.patch(url_servicio, data=data)
-
-    if respuesta.status_code == 200:
-        print('El subtotal del detalle se modificó correctamente.')
-    else:
-        print('Hubo un error al modificar el subtotal del detalle.')
-
-def eliminar_detalle(id_detalle):
-    url_servicio = f'http://127.0.0.1:8000/api/delete-detalle/?id_detalle={id_detalle}'
-    respuesta = requests.delete(url_servicio)
-    if respuesta.status_code == 204:
-        print('Detalle eliminado correctamente.')
-    else:
-        print('Error al eliminar el detalle.')
 
 def inicioSesion(request):
     if request.method == 'POST':
