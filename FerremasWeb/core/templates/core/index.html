@@ -1,0 +1,28 @@
+{% extends 'core/plantillaCategorias.html'%}
+{% load static %}
+
+{% block titulo %}
+    <title>Pagina Principal</title>
+{% endblock titulo %}
+
+{% block disenos %}
+    <link rel="stylesheet" type="text/css" href="{% static  'core/css/general.css'%}">
+{% endblock disenos %}
+
+{% block cuerpo %}
+    <div class="container">
+        <h1 class="text-center">¡Bienvenido al sitio web de Ferremas!</h1>
+        <h2 class="text-center">Donde podrás encontrar lo que necesitas en ferreteria y construcción.</h2>
+        {% if rol == 0 %}
+            <h2>Esto se muestra si rol es 0</h2>
+        {% endif %}
+
+        {% if rol == 5 %}
+            <h2>Esto se muestra si rol es 5</h2>
+        {% endif %}
+    </div>
+{% endblock cuerpo %}
+    
+{% block js %}
+    
+{% endblock js %}

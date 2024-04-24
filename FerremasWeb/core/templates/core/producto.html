@@ -1,0 +1,45 @@
+{% extends 'core/plantillaCategorias.html'%}
+{% load static %}
+
+{% block titulo %}
+    <title>Producto</title>
+{% endblock titulo %}
+
+{% block disenos %}
+    <link rel="stylesheet" type="text/css" href="{% static  'core/css/general.css'%}">
+{% endblock disenos %}
+
+{% block cuerpo %}
+    <div class="container my-5">
+    {% for p in producto%}
+        <div class="row">
+            <div class="col-md-4">
+                <!-- Imagen del producto -->
+                <img src="{{ p.foto_prod }}" class="img-fluid imagen_prod_pag" alt="{{ p.nombre_prod }}">
+            </div>
+            <div class="col-md-8">
+                <!-- Detalles del producto -->
+                <h2>{{ p.nombre_prod }}</h2>
+                <p class="text-muted">{{ p.marca }}</p>
+                <p>{{ p.descripcion }}</p>
+                <p><strong>Precio:</strong> $ {{ p.precio }}</p>
+                <p><strong>Stock:</strong> {{ p.stock }}</p>
+                {% if rol == 0 %}
+                    <a href="{% url 'mostrarLogin' %}" class="btn btn-primary">Iniciar sesión</a>
+                {% endif %}
+                {% if rol == 1 %}
+                    <form action="{% url 'agregarAlCarrito' %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-primary">Agregar al carrito</button>
+                        <input type="hidden" name="codigo" value="{{ p.cod_prod }}">
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock cuerpo %}
+    
+{% block js %}
+    
+{% endblock js %}
