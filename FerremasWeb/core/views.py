@@ -242,7 +242,7 @@ def mostrarCarrito(request):
 
     carrito = obtener_venta(usuario1['id_usuario'], 'ACTIVO')
     
-
+    
     if carrito:
         carrito = carrito[0]
         detalles = obtener_detallesVenta(carrito['id_venta'])
@@ -251,7 +251,7 @@ def mostrarCarrito(request):
             producto = i['producto']
             stock = obtener_stock(producto['cod_prod'])
             if stock['stock_total'] <= 0:
-                
+                eliminar_detalle(i['id_detalle'])
                 
                 return redirect('mostrarCarrito')
                     
@@ -319,7 +319,8 @@ def cambiarCantidad(request, cod_detalle):
     cant = int(request.POST['nueva_cantidad_{}'.format(cod_detalle)])
     producto = detalle['producto']
 
-    stockC = producto['stock']
+    stockC = obtener_stock(producto['cod_prod'])
+    stockC = stockC['stock_total']
     cantidadC = int(cant)
 
     if cantidadC >= 0:
