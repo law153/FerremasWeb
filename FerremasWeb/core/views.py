@@ -35,7 +35,15 @@ def obtener_producto(id_prod):
         return respuesta.json()
     else:
         return None 
-    
+
+def obtener_stock(cod_prod):
+    url_servicio = f'http://localhost:8000/api/stock-producto/?producto={cod_prod}'
+    respuesta = requests.get(url_servicio)
+    if respuesta.status_code == 200:
+        return respuesta.json()
+    else:
+        return None 
+
 def obtener_usuario(correo):
     url_servicio = f'http://localhost:8000/api/usuario/{correo}'
     print(url_servicio)
@@ -101,6 +109,8 @@ def modificar_estado_carrito(id_venta, estado):
         print('El estado del carrito se modificó correctamente.')
     else:
         print('Hubo un error al modificar el estado del carrito.')
+
+
 
 
 def crearDetalle(cantidad, subtotal, venta, producto):
@@ -213,9 +223,12 @@ def mostrarProducto(request, id_prod):
 
     producto = obtener_producto(id_prod)
 
+    stock = obtener_stock(id_prod)
+    
+
     rol = request.session.get('rol',0)
 
-    contexto = {"categorias" : categorias, "rol": rol, "producto": producto}
+    contexto = {"categorias" : categorias, "rol": rol, "producto": producto, "stock" : stock}
 
     return render(request, 'core/producto.html',contexto)
 
