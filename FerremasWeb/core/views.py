@@ -241,15 +241,17 @@ def mostrarCarrito(request):
     usuario1 = obtener_usuario(username)
 
     carrito = obtener_venta(usuario1['id_usuario'], 'ACTIVO')
-    carrito = carrito[0]
+    
 
     if carrito:
+        carrito = carrito[0]
         detalles = obtener_detallesVenta(carrito['id_venta'])
         totalV = 0
         for i in detalles:
             producto = i['producto']
-            if producto['stock'] <= 0:
-                i.delete()
+            stock = obtener_stock(producto['cod_prod'])
+            if stock['stock_total'] <= 0:
+                
                 
                 return redirect('mostrarCarrito')
                     
