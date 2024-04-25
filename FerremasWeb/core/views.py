@@ -150,6 +150,32 @@ def crearVenta(fecha_venta, estado, fecha_entrega, total, carrito, usuario):
     else:
         print('Error al crear la venta.')
 
+def crearUsuario(rut, activo, dvrut, nombre, apellido, telefono, correo, clave, direccion, respuest, rol, pregunta):
+
+    data = {
+    'rut': rut,
+    'activo': activo,
+    'dvrut': dvrut,  
+    'nombre': nombre,
+    'apellido' : apellido,
+    'telefono' : telefono,
+    'correo' : correo,
+    'clave' : clave,
+    'direccion' : direccion,
+    'respuesta' : respuest,
+    'rol' : rol,
+    'pregunta' : pregunta,
+    }
+
+    url_servicio = 'http://127.0.0.1:8000/api/crear-usuario/'
+
+    respuesta = requests.post(url_servicio, data=data)
+
+    if respuesta.status_code == 201:
+        print('Usuario creado correctamente.')
+    else:
+        print('Error al crear el usuario.')
+
 def modificar_cantidad_detalle(id_detalle, nueva_cantidad):
     url_servicio = f'http://127.0.0.1:8000/api/detalle/{id_detalle}/'
     data = {'cantidad': nueva_cantidad}  # Datos a enviar en la solicitud
@@ -242,7 +268,7 @@ def mostrarCarrito(request):
 
     carrito = obtener_venta(usuario1['id_usuario'], 'ACTIVO')
     
-    
+
     if carrito:
         carrito = carrito[0]
         detalles = obtener_detallesVenta(carrito['id_venta'])
