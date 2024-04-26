@@ -53,8 +53,15 @@ def obtener_stock(cod_prod):
         return None 
 
 def obtener_usuario(correo):
-    url_servicio = f'http://localhost:8000/api/usuario/{correo}'
-    print(url_servicio)
+    url_servicio = f'http://localhost:8000/api/usuarioC/{correo}'
+    respuesta = requests.get(url_servicio)
+    if respuesta.status_code == 200:
+        return respuesta.json()
+    else:
+        return None 
+
+def obtener_usuarioRut(rut):
+    url_servicio = f'http://localhost:8000/api/usuarioR/{rut}'
     respuesta = requests.get(url_servicio)
     if respuesta.status_code == 200:
         return respuesta.json()
@@ -174,10 +181,13 @@ def crearUsuario(rut, activo, dvrut, nombre, apellido, telefono, correo, clave, 
     'rol' : rol,
     'pregunta' : pregunta,
     }
-
+    
+    print(data)
     url_servicio = 'http://127.0.0.1:8000/api/crear-usuario/'
 
     respuesta = requests.post(url_servicio, data=data)
+
+    print(respuesta)
 
     if respuesta.status_code == 201:
         print('Usuario creado correctamente.')
@@ -224,7 +234,7 @@ def mostrarIndex(request):
 
     rol = request.session.get('rol',0)
 
-    contexto = {"categorias" : categorias, "rol": rol}
+    contexto = {"categorias" : categorias, "rol": rol} 
 
     return render(request, 'core/index.html',contexto)
 
@@ -316,6 +326,7 @@ def mostrarCrearCuenta(request):
 
 def inicioSesion(request):
     if request.method == 'POST':
+
         correoI = request.POST['username']
         claveI = request.POST['password']
 
@@ -338,7 +349,7 @@ def inicioSesion(request):
                 login(request, user)
                 return redirect('mostrarIndex')
         
-    return redirect('mostrarIni_sesion')
+    return redirect('mostrarLogin')
     
 def cierreSesion(request):
     logout(request)
@@ -416,45 +427,47 @@ def agregarAlCarrito(request):
     
     return redirect('mostrarCarrito')
 
-"""
+
 def registrarUsuario(request):
     rutU = request.POST['rut']
     dvrutU = request.POST['dvrut']
     nombreU = request.POST['nombre']
     apellidoU = request.POST['apellido']
-    telefonoU = request.POST['fono']
-    direccionU = request.POST['direc']
-    correoU = request.POST['correo_reg']
-    claveU = request.POST['contra_ini']
-    respuestaU = request.POST['respuesta']
-    preguntaUid = request.POST['pregunta']
+    telefonoU = request.POST['telefono']
+    direccionU = request.POST['direccion']
+    correoU = request.POST['correo']
+    claveU = request.POST['clave']
+    rolU = request.POST['rol']
+    respuestaU = 'a'
+    preguntaUid = 1
+    usuario1 = False
+    usuario2 = False
 
-    registroRol = Rol.objects.get(id_rol = 1) ##Los usuarios registrados son clientes
-    registroPregunta = Pregunta.objects.get(id_pregunta = preguntaUid) ##Pregunta asiganada por defecto
+    if(rolU == '1'):
+        rolU = 1
 
-    usuario1 = Usuario.objects.filter(rut = rutU)
-    usuario2 = Usuario.objects.filter(correo = correoU)
+    usuarioPorCorreo = obtener_usuario(correoU)
+    if usuarioPorCorreo:
+        print('El correo '+correoU+' esta en uso')
+        usuario1 = True
+
+    
+    usuarioPorRut = obtener_usuarioRut(rutU)
+    if usuarioPorRut:
+        print('El rut '+rutU+' esta en uso')
+        usuario2 = True
+    
 
     if usuario1 or usuario2:
-        messages.error(request,'Ya existe una cuenta con el correo/rut ingresado')
-        return redirect('mostrarRegistro')
+        print(request,'Ya existe una cuenta con el correo/rut ingresado')
+        return redirect('mostrarCrearCuenta')
     else:
-        Usuario.objects.create( rut = rutU,
-                                dvrut = dvrutU,
-                                nombre = nombreU,
-                                apellido = apellidoU,
-                                telefono = telefonoU,
-                                correo = correoU,
-                                clave = claveU,
-                                direccion = direccionU,
-                                respuesta = respuestaU,
-                                rol = registroRol,
-                                pregunta = registroPregunta)
+        
+        crearUsuario(rutU, True, dvrutU, nombreU, apellidoU, telefonoU, correoU, claveU, direccionU, respuestaU, rolU, preguntaUid)
         
         user = User.objects.create_user(username = correoU, email = correoU, password = claveU )
         user.is_staff = False
         user.is_active = True
         user.save()
 
-        return redirect('mostrarIni_sesion')
-"""
+        return redirect('mostrarLogin')

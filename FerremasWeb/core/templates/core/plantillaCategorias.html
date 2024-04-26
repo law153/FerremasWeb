@@ -35,7 +35,7 @@
             <div class="col text-right">
                 <div class="d-inline-block text-center">
                     {% if rol == 0 %}
-                        <a href="#" class="text-light enlaces">Registrarse</a>
+                        <a href="{% url 'mostrarCrearCuenta' %}" class="text-light enlaces">Registrarse</a>
                         <a href="{% url 'mostrarLogin' %}" class="text-light enlaces">Iniciar sesión</a>
                     {% endif %}
                     {% if rol == 1  %}
@@ -46,7 +46,7 @@
                         <a href="#" class="text-light enlaces">Pedido</a>
                         
                     {% if rol == 5 %}
-                        <a href="#" class="text-light enlaces ml-3">Crear cuenta</a>
+                        <a href="{% url 'mostrarCrearCuenta' %}" class="text-light enlaces ml-3">Crear cuenta</a>
                     {% endif %}
                     {% if rol != 0 %}
                         <a href="#" class="text-light enlaces">Perfil</a>

@@ -11,7 +11,7 @@
 
 {% block cuerpo %}
 
-    <form method="POST" action="#" class="mt-5">
+    <form method="POST" action="{% url 'registrarUsuario' %}" class="mt-5">
         {% csrf_token %}
 
         <div class="mb-3 row justify-content-center">

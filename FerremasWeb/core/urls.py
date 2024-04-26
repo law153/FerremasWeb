@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import mostrarIndex, mostrarLogin, inicioSesion, cierreSesion, mostrarProductos, mostrarProducto, mostrarCarrito, agregarAlCarrito, cambiarCantidad, sacarDelCarro, mostrarCrearCuenta
+from .views import mostrarIndex, mostrarLogin, inicioSesion, cierreSesion, mostrarProductos, mostrarProducto, mostrarCarrito, agregarAlCarrito, cambiarCantidad, sacarDelCarro, mostrarCrearCuenta, registrarUsuario
 
 urlpatterns=[
 
@@ -15,4 +15,5 @@ urlpatterns=[
     path('cambiarCantidad/<cod_detalle>',cambiarCantidad,name="cambiarCantidad"),
     path('sacarDelCarro/<cod_detalle>',sacarDelCarro,name="sacarDelCarro"),
     path('agregarAlCarrito/',agregarAlCarrito,name="agregarAlCarrito"),
+    path('registrarUsuario/',registrarUsuario,name="registrarUsuario"),
 ]
