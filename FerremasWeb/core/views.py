@@ -295,7 +295,14 @@ def mostrarCarrito(request):
     
     return render(request, 'core/carrito.html',contexto)
 
+def mostrarCrearCuenta(request):
+    categorias = obtener_categorias()
 
+    rol = request.session.get('rol',0)
+
+    contexto = {"categorias" : categorias, "rol": rol}
+
+    return render(request, 'core/crearCuenta.html',contexto)
 
 def inicioSesion(request):
     if request.method == 'POST':
