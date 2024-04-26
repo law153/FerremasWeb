@@ -18,6 +18,14 @@ def obtener_categorias():
     else:
         return None
 
+def obtener_roles():
+    url_servicio = 'http://127.0.0.1:8000/api/roles/'
+    respuesta = requests.get(url_servicio)
+    if respuesta.status_code == 200:
+        return respuesta.json()
+    else:
+        return None
+
 def obtener_productos_cate(id_cate):
     url_servicio = f'http://localhost:8000/api/productos/?categoria={id_cate}'
     print(url_servicio)
@@ -298,9 +306,11 @@ def mostrarCarrito(request):
 def mostrarCrearCuenta(request):
     categorias = obtener_categorias()
 
+    roles = obtener_roles()
+
     rol = request.session.get('rol',0)
 
-    contexto = {"categorias" : categorias, "rol": rol}
+    contexto = {"categorias" : categorias, "rol": rol, "roles": roles}
 
     return render(request, 'core/crearCuenta.html',contexto)
 

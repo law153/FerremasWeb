@@ -32,6 +32,21 @@
                 <input type="text" class="form-control" id="nombre" name="nombre" required>
             </div>
         </div>
+        {% if rol == 5 %}
+            <div class="mb-3 row justify-content-center">
+                <label for="rol" class="col-md-3 col-form-label text-end">Rol</label>
+                <div class="col-md-7">
+                    <select id="rol" name="rol" class="form-select">
+                        {% for r in roles%}
+                            <option value="{{r.id_rol}}">{{r.nombre_rol}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        {% endif %}
+        {% if rol == 0 %}
+            <input hidden readonly id="rol" name="rol" value="1">
+        {% endif %}
         <div class="mb-3 row justify-content-center">
             <label for="apellido" class="col-md-3 col-form-label text-end">Apellido</label>
             <div class="col-md-7">
