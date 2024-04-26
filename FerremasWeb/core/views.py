@@ -418,7 +418,7 @@ def agregarAlCarrito(request):
 
     else:
         
-        carrito = crearVenta(fecha_hoy, 'ACTIVO', fecha_e, productoC['precio'], 1, usuarioC['id_usuario'])
+        carrito = crearVenta(fecha_hoy, 'ACTIVO', fecha_e, productoC['precio'], True, usuarioC['id_usuario'])
         venta = obtener_venta(usuarioC['id_usuario'], 'ACTIVO')
         venta = venta[0]
         idventa = venta['id_venta']
