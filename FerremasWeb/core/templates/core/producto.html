@@ -34,7 +34,29 @@
                         <input type="hidden" name="codigo" value="{{ p.cod_prod }}">
                     </form>
                 {% endif %}
+                {% if rol == 4 %}
+                    <div>
+
+                        <form name="sumar" id="boton-cant1" method="POST" action="{% url 'sumarStock' p.cod_prod%}" class="border border-success">
+                            {% csrf_token %}
+                            <input type="number" min="1"  value="1" name="agregar" id="agregar" class="form-control mb-2">
+                            <input type="submit" value="Agregar" class="btn btn-success">
+                        </form>
+                        
+                    </div>
+                    <div>
+
+                        <form name="restar" id="boton-cant2" method="POST" action="{% url 'restarStock' p.cod_prod%}" class="border border-danger">
+                            {% csrf_token %}
+                            <input type="number" min="1"  value="1" name="quitar" id="quitar" class="form-control mb-2">
+                            <input type="submit" value="Quitar" class="btn btn-danger">
+                        </form>
+                        
+                    </div>
+
+            {% endif %}
             </div>
+            
         </div>
     </div>
     {% endfor %}

@@ -1,5 +1,4 @@
-from django.shortcuts import render
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from datetime import date, timedelta
 from django.contrib import messages
 import requests
@@ -126,7 +125,21 @@ def modificar_estado_carrito(id_venta, estado):
         print('Hubo un error al modificar el estado del carrito.')
 
 
+def crearTransaccion(tipo_transaccion, cantidad, producto):
+    data = {
+    'tipo_transaccion': tipo_transaccion, 
+    'cantidad': cantidad, 
+    'producto': producto  
+    }
 
+    url_servicio = 'http://127.0.0.1:8000/api/crear-transaccion/'
+
+    respuesta = requests.post(url_servicio, data=data)
+
+    if respuesta.status_code == 201:
+        print('Transaccion creada correctamente.')
+    else:
+        print('Error al crear la transaccion.')
 
 def crearDetalle(cantidad, subtotal, venta, producto):
     data = {
@@ -471,3 +484,29 @@ def registrarUsuario(request):
         user.save()
 
         return redirect('mostrarLogin')
+
+def sumarStock(request, cod_prod):
+
+    tipo_transaccion = "Agregar"
+    cantidad = request.POST['agregar']
+    producto = cod_prod
+    url_con_parametro = reverse('mostrarProducto', kwargs={'id_prod': producto})
+
+    crearTransaccion(tipo_transaccion, cantidad, producto)
+    return redirect(url_con_parametro)
+
+
+def restarStock(request, cod_prod):
+
+    tipo_transaccion = "Retirar"
+    cantidad = request.POST['quitar']
+    producto = cod_prod
+
+    url_con_parametro = reverse('mostrarProducto', kwargs={'id_prod': producto})
+
+    crearTransaccion(tipo_transaccion, cantidad, producto)
+    return redirect(url_con_parametro)
+
+
+
+    
