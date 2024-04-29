@@ -124,6 +124,29 @@ def modificar_estado_carrito(id_venta, estado):
     else:
         print('Hubo un error al modificar el estado del carrito.')
 
+def modificar_cantidad_detalle(id_detalle, nueva_cantidad):
+    url_servicio = f'http://127.0.0.1:8000/api/detalle/{id_detalle}/'
+    data = {'cantidad': nueva_cantidad}  # Datos a enviar en la solicitud
+
+    # Realizar la solicitud PUT para modificar la cantidad del detalle
+    respuesta = requests.patch(url_servicio, data=data)
+
+    if respuesta.status_code == 200:
+        print('La cantidad del detalle se modificó correctamente.')
+    else:
+        print('Hubo un error al modificar la cantidad del detalle.')
+
+def modificar_subtotal_detalle(id_detalle, nuevo_subtotal):
+    url_servicio = f'http://127.0.0.1:8000/api/detalle/{id_detalle}/'
+    data = {'subtotal': nuevo_subtotal}  # Datos a enviar en la solicitud
+
+    # Realizar la solicitud PUT para modificar el subtotal del detalle
+    respuesta = requests.patch(url_servicio, data=data)
+
+    if respuesta.status_code == 200:
+        print('El subtotal del detalle se modificó correctamente.')
+    else:
+        print('Hubo un error al modificar el subtotal del detalle.')
 
 def crearTransaccion(tipo_transaccion, cantidad, producto):
     data = {
@@ -178,6 +201,33 @@ def crearVenta(fecha_venta, estado, fecha_entrega, total, carrito, usuario):
     else:
         print('Error al crear la venta.')
 
+import requests
+
+def crearProducto(nombre, descripcion, precio, marca, imagen, unidad, categoria):
+    data = {
+        'nombre_prod': nombre,
+        'descripcion': descripcion,
+        'precio': precio,
+        'marca': marca,
+        'unidad_medida': unidad,
+        'categoria': categoria
+    }
+
+    files = {
+        'foto_prod': imagen
+    }
+
+    url_servicio = 'http://127.0.0.1:8000/api/crear-producto/'
+    
+    respuesta = requests.post(url_servicio, data=data, files=files)
+
+    if respuesta.status_code == 201:
+        print('Producto creado correctamente.')
+    else:
+        print('Error al crear el producto.')
+
+
+
 def crearUsuario(rut, activo, dvrut, nombre, apellido, telefono, correo, clave, direccion, respuest, rol, pregunta):
 
     data = {
@@ -207,29 +257,7 @@ def crearUsuario(rut, activo, dvrut, nombre, apellido, telefono, correo, clave, 
     else:
         print('Error al crear el usuario.')
 
-def modificar_cantidad_detalle(id_detalle, nueva_cantidad):
-    url_servicio = f'http://127.0.0.1:8000/api/detalle/{id_detalle}/'
-    data = {'cantidad': nueva_cantidad}  # Datos a enviar en la solicitud
 
-    # Realizar la solicitud PUT para modificar la cantidad del detalle
-    respuesta = requests.patch(url_servicio, data=data)
-
-    if respuesta.status_code == 200:
-        print('La cantidad del detalle se modificó correctamente.')
-    else:
-        print('Hubo un error al modificar la cantidad del detalle.')
-
-def modificar_subtotal_detalle(id_detalle, nuevo_subtotal):
-    url_servicio = f'http://127.0.0.1:8000/api/detalle/{id_detalle}/'
-    data = {'subtotal': nuevo_subtotal}  # Datos a enviar en la solicitud
-
-    # Realizar la solicitud PUT para modificar el subtotal del detalle
-    respuesta = requests.patch(url_servicio, data=data)
-
-    if respuesta.status_code == 200:
-        print('El subtotal del detalle se modificó correctamente.')
-    else:
-        print('Hubo un error al modificar el subtotal del detalle.')
 
 def eliminar_detalle(id_detalle):
     url_servicio = f'http://127.0.0.1:8000/api/delete-detalle/?id_detalle={id_detalle}'
@@ -262,7 +290,7 @@ def mostrarLogin(request):
     return render(request, 'core/login.html',contexto)
 
 def mostrarProductos(request, id_cate):
-
+    
     categorias = obtener_categorias()
 
     productos = obtener_productos_cate(id_cate)
@@ -336,6 +364,17 @@ def mostrarCrearCuenta(request):
     contexto = {"categorias" : categorias, "rol": rol, "roles": roles}
 
     return render(request, 'core/crearCuenta.html',contexto)
+
+def mostrarCrearProducto(request):
+    categorias = obtener_categorias()
+
+    roles = obtener_roles()
+
+    rol = request.session.get('rol',0)
+
+    contexto = {"categorias" : categorias, "rol": rol, "roles": roles}
+
+    return render(request, 'core/crearProducto.html',contexto)
 
 def inicioSesion(request):
     if request.method == 'POST':
@@ -508,5 +547,16 @@ def restarStock(request, cod_prod):
     return redirect(url_con_parametro)
 
 
+def crearUnProducto(request):
+    nombre = request.POST['nombre_prod']
+    descripcion = request.POST['descripcion']
+    precio = request.POST['precio']
+    marca = request.POST['marca']
+    imagen = request.FILES['foto_prod']
+    unidad = request.POST['unidad_medida']
+    categoria = request.POST['categoria']
+    url_con_parametro = reverse('mostrarProductos', kwargs={'id_cate': categoria})
 
-    
+    crearProducto(nombre, descripcion, precio, marca, imagen, unidad, categoria)
+
+    return redirect(url_con_parametro)
