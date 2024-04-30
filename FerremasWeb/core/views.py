@@ -148,11 +148,12 @@ def modificar_subtotal_detalle(id_detalle, nuevo_subtotal):
     else:
         print('Hubo un error al modificar el subtotal del detalle.')
 
-def crearTransaccion(tipo_transaccion, cantidad, producto):
+def crearTransaccion(tipo_transaccion, cantidad, producto, fecha):
     data = {
     'tipo_transaccion': tipo_transaccion, 
     'cantidad': cantidad, 
-    'producto': producto  
+    'producto': producto,
+    'fecha_transaccion' : fecha  
     }
 
     url_servicio = 'http://127.0.0.1:8000/api/crear-transaccion/'
@@ -529,9 +530,11 @@ def sumarStock(request, cod_prod):
     tipo_transaccion = "Agregar"
     cantidad = request.POST['agregar']
     producto = cod_prod
+    fecha_hoy = date.today()
+
     url_con_parametro = reverse('mostrarProducto', kwargs={'id_prod': producto})
 
-    crearTransaccion(tipo_transaccion, cantidad, producto)
+    crearTransaccion(tipo_transaccion, cantidad, producto, fecha_hoy)
     return redirect(url_con_parametro)
 
 
@@ -540,10 +543,11 @@ def restarStock(request, cod_prod):
     tipo_transaccion = "Retirar"
     cantidad = request.POST['quitar']
     producto = cod_prod
+    fecha_hoy = date.today()
 
     url_con_parametro = reverse('mostrarProducto', kwargs={'id_prod': producto})
 
-    crearTransaccion(tipo_transaccion, cantidad, producto)
+    crearTransaccion(tipo_transaccion, cantidad, producto, fecha_hoy)
     return redirect(url_con_parametro)
 
 
