@@ -75,6 +75,15 @@ def obtener_venta(usuario, estado):
         return respuesta.json()
     else:
         return None  
+    
+def buscarVentas_estado(estado):
+    url_servicio = f'http://127.0.0.1:8000/api/ventas-estado/?estado={estado}'
+    respuesta = requests.get(url_servicio)
+    if respuesta.status_code == 200:
+        
+        return respuesta.json()
+    else:
+        return None 
 
 def obtener_detallesVenta(venta):
     url_servicio = f'http://127.0.0.1:8000/api/detalles-carrito/?venta={venta}'
@@ -123,6 +132,18 @@ def modificar_estado_carrito(id_venta, estado):
         print('El estado del carrito se modificó correctamente.')
     else:
         print('Hubo un error al modificar el estado del carrito.')
+
+def modificar_carrito_carrito(id_venta, carrito):
+    url_servicio = f'http://127.0.0.1:8000/api/venta/{id_venta}/'
+    data = {'carrito': carrito}  # Datos a enviar en la solicitud
+
+    # Realizar la solicitud POST para modificar el total del carrito
+    respuesta = requests.patch(url_servicio, data=data)
+
+    if respuesta.status_code == 200:
+        print('La venta paso a ser o no carrito')
+    else:
+        print('Hubo un problema en carrito_carrito')
 
 def modificar_cantidad_detalle(id_detalle, nueva_cantidad):
     url_servicio = f'http://127.0.0.1:8000/api/detalle/{id_detalle}/'
@@ -317,6 +338,18 @@ def mostrarProducto(request, id_prod):
     contexto = {"categorias" : categorias, "rol": rol, "producto": producto, "stock" : stock}
 
     return render(request, 'core/producto.html',contexto)
+
+def mostrarPedidos(request):
+
+    categorias = obtener_categorias()
+
+    pedidos = buscarVentas_estado('PEDIDO SOLICITADO')
+
+    rol = request.session.get('rol',0)
+
+    contexto = {"categorias" : categorias, "rol": rol, 'pedidos' : pedidos}
+
+    return render(request, 'core/pedidos.html',contexto)
 
 def mostrarCarrito(request):
     categorias = obtener_categorias()
@@ -564,3 +597,10 @@ def crearUnProducto(request):
     crearProducto(nombre, descripcion, precio, marca, imagen, unidad, categoria)
 
     return redirect(url_con_parametro)
+
+
+def pagandoCarrito(request, id_venta):
+
+    modificar_estado_carrito(id_venta, 'PEDIDO SOLICITADO')
+
+    return redirect('mostrarIndex')

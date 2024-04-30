@@ -42,9 +42,9 @@
                         <a href="#" class="text-light enlaces ml-3">Consultas</a>
                         <a href="{% url 'mostrarCarrito' %}" class="text-light enlaces ml-3">Carrito</a>
                     {% endif %}
-
-                        <a href="#" class="text-light enlaces">Pedido</a>
-                        
+                    {% if rol == 2 %}
+                        <a href="{% url 'mostrarPedidos' %}" class="text-light enlaces">Pedidos</a>
+                    {% endif %}
                     {% if rol == 5 %}
                         <a href="{% url 'mostrarCrearCuenta' %}" class="text-light enlaces ml-3">Crear cuenta</a>
                     {% endif %}

@@ -1,0 +1,38 @@
+{% extends 'core/plantillaCategorias.html'%}
+{% load static %}
+
+{% block titulo %}
+    <title>Pedidos</title>
+{% endblock titulo %}
+
+{% block disenos %}
+    <link rel="stylesheet" type="text/css" href="{% static  'core/css/general.css'%}">
+{% endblock disenos %}
+
+{% block cuerpo %}
+
+    {% if pedidos %}
+        <div class="container">
+            {% for p in pedidos %}
+                <div class="row border border-dark p-3">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <h2>Pedido el: {{ p.fecha_venta }}</h2>
+                        <h2>Valor: ${{ p.total }}</h2>
+                    </div>
+                    <div class="col-md-2"> 
+                        <form name="aceptar-pedido" id="aceptar-pedido" method="POST" action="#">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success ml-2">Revisar pedido</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    
+{% endblock cuerpo %}
+    
+{% block js %}
+    
+{% endblock js %}

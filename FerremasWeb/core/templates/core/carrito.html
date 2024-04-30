@@ -58,7 +58,18 @@
             </div>
             <div class="col-md-2"></div>
         </div>
-
+        <div class="row mt-5 border border-dark">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 d-flex justify-content">
+                <form name="cambiar-estado" id="cambiar-estado" method="POST" action="{% url 'pagandoCarrito' venta.id_venta %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success ml-2">Pagar(Pero solo para cambiar el estado esto es testing aaaaaaa)</button>
+                </form>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    {% else %}
+        <h1>NO SE TIENE UN CARRITO ACTIVO</h1>
     {% endif %}
 {% endblock cuerpo %}
     
