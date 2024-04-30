@@ -152,8 +152,8 @@ def crearTransaccion(tipo_transaccion, cantidad, producto, fecha):
     data = {
     'tipo_transaccion': tipo_transaccion, 
     'cantidad': cantidad, 
-    'producto': producto,
-    'fecha_transaccion' : fecha  
+    'fecha_transaccion' : fecha,
+    'producto': producto
     }
 
     url_servicio = 'http://127.0.0.1:8000/api/crear-transaccion/'
