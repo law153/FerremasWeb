@@ -25,6 +25,14 @@ def obtener_roles():
     else:
         return None
 
+def obtener_consultas():
+    url_servicio = 'http://127.0.0.1:8000/api/consultas/'
+    respuesta = requests.get(url_servicio)
+    if respuesta.status_code == 200:
+        return respuesta.json()
+    else:
+        return None
+
 def obtener_productos_cate(id_cate):
     url_servicio = f'http://localhost:8000/api/productos/?categoria={id_cate}'
     print(url_servicio)
@@ -185,6 +193,22 @@ def crearTransaccion(tipo_transaccion, cantidad, producto, fecha):
         print('Transaccion creada correctamente.')
     else:
         print('Error al crear la transaccion.')
+
+def crearConsulta(nombre, asunto, mensaje):
+    data = {
+    'nombre_consultante': nombre, 
+    'asunto_consulta': asunto, 
+    'mensaje_consulta' : mensaje
+    }
+
+    url_servicio = 'http://127.0.0.1:8000/api/crear-consulta/'
+
+    respuesta = requests.post(url_servicio, data=data)
+
+    if respuesta.status_code == 201:
+        print('Consulta creada correctamente.')
+    else:
+        print('Error al crear la consulta.')
 
 def crearDetalle(cantidad, subtotal, venta, producto):
     data = {
