@@ -375,6 +375,16 @@ def mostrarPedidos(request):
 
     return render(request, 'core/pedidos.html',contexto)
 
+def mostrarConsultas(request):
+
+    categorias = obtener_categorias()
+
+    rol = request.session.get('rol',0)
+
+    contexto = {"categorias" : categorias, "rol": rol} 
+
+    return render(request, 'core/consultas.html',contexto)
+
 def mostrarCarrito(request):
     categorias = obtener_categorias()
 

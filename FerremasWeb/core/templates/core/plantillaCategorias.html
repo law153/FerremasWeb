@@ -45,6 +45,9 @@
                     {% if rol == 2 %}
                         <a href="{% url 'mostrarPedidos' %}" class="text-light enlaces">Pedidos</a>
                     {% endif %}
+                    {% if rol == 1 or rol == 2 %}
+                        <a href="{% url 'mostrarConsultas' %}" class="text-light enlaces">Consultas</a>
+                    {% endif %}
                     {% if rol == 5 %}
                         <a href="{% url 'mostrarCrearCuenta' %}" class="text-light enlaces ml-3">Crear cuenta</a>
                     {% endif %}
