@@ -200,7 +200,7 @@ def crearConsulta(nombre, asunto, mensaje):
     'asunto_consulta': asunto, 
     'mensaje_consulta' : mensaje
     }
-
+    print(data)
     url_servicio = 'http://127.0.0.1:8000/api/crear-consulta/'
 
     respuesta = requests.post(url_servicio, data=data)
@@ -381,7 +381,12 @@ def mostrarConsultas(request):
 
     rol = request.session.get('rol',0)
 
-    contexto = {"categorias" : categorias, "rol": rol} 
+    if(rol == 2):
+        consultas = obtener_consultas()
+        contexto = {"categorias" : categorias, "rol": rol, "consultas": consultas}
+    else:
+         contexto = {"categorias" : categorias, "rol": rol}
+    
 
     return render(request, 'core/consultas.html',contexto)
 
@@ -638,3 +643,17 @@ def pagandoCarrito(request, id_venta):
     modificar_estado_carrito(id_venta, 'PEDIDO SOLICITADO')
 
     return redirect('mostrarIndex')
+
+def enviarConsulta(request):
+    asunto = request.POST['asunto']
+    mensaje = request.POST['mensaje']
+
+    username = request.session.get('username')
+    usuario = obtener_usuario(username)
+    nombre = usuario['nombre']
+    apellido = usuario['apellido']
+    nombre_completo = nombre + " " + apellido
+
+    crearConsulta(nombre_completo, asunto, mensaje)
+
+    return redirect('mostrarConsultas')
