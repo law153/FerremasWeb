@@ -667,3 +667,11 @@ def enviarConsulta(request):
     crearConsulta(nombre_completo, asunto, mensaje)
 
     return redirect('mostrarConsultas')
+
+def buscarStock(request):
+    if request.method == 'POST':
+        codigo_producto = request.POST.get('codigo_producto')
+        stock = obtener_stock(codigo_producto)
+        return render(request, 'core/stock.html', {'stock': stock})
+    else:
+        return render(request, 'core/stock.html')
