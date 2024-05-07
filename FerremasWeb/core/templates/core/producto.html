@@ -19,6 +19,10 @@
             </div>
             <div class="col-md-8">
                 <!-- Detalles del producto -->
+                {% if rol == 2 %}
+                    <h2>Codigo del producto: {{ p.cod_prod }}</h2>
+                {% endif %}
+                
                 <h2>{{ p.nombre_prod }}</h2>
                 <p class="text-muted">{{ p.marca }}</p>
                 <p>{{ p.descripcion }}</p>

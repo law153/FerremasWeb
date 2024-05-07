@@ -43,6 +43,7 @@
                     {% endif %}
                     {% if rol == 2 %}
                         <a href="{% url 'mostrarPedidos' %}" class="text-light enlaces">Pedidos</a>
+                        <a href="{% url 'mostrarStock' %}" class="text-light enlaces">Stock</a>
                     {% endif %}
                     {% if rol == 1 or rol == 2 %}
                         <a href="{% url 'mostrarConsultas' %}" class="text-light enlaces">Consultas</a>

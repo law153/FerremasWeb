@@ -363,6 +363,16 @@ def mostrarProducto(request, id_prod):
 
     return render(request, 'core/producto.html',contexto)
 
+def mostrarStock(request):
+
+    categorias = obtener_categorias()
+
+    rol = request.session.get('rol',0)
+
+    contexto = {"categorias" : categorias, "rol": rol}
+
+    return render(request, 'core/stock.html',contexto)
+
 def mostrarPedidos(request):
 
     categorias = obtener_categorias()
