@@ -94,7 +94,7 @@
             <div class="col-md-8 d-flex justify-content">
                 <form name="cambiar-estado" id="cambiar-estado" method="POST" action="{% url 'pagandoCarrito' venta.id_venta %}">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-success ml-2">Pagar(Pero solo para cambiar el estado esto es testing aaaaaaa)</button>
+                    <button type="submit" class="btn btn-success ml-2">Pagar con Webpay</button>
                 </form>
             </div>
             <div class="col-md-2"></div>
