@@ -5,6 +5,7 @@ import requests
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth import authenticate,login, logout
+
 # Create your views here.
 
 
@@ -341,9 +342,21 @@ def mostrarProductos(request, id_cate):
 
     productos = obtener_productos_cate(id_cate)
 
+    cambio = valorDolar()
+
+    cambio = cambio['Series']
+    cambio = cambio['Obs']
+    cambio = cambio[-1]
+    valorDelDolar = cambio['value']
+    valorDelDolar = float(valorDelDolar)
+
+    print(type(valorDelDolar))
+    print(valorDelDolar)
+    
+
     rol = request.session.get('rol',0)
 
-    contexto = {"categorias" : categorias, "rol": rol, "productos": productos}
+    contexto = {"categorias" : categorias, "rol": rol, "productos": productos, "dolar" : valorDelDolar}
 
     return render(request, 'core/productos.html',contexto)
 
@@ -675,3 +688,12 @@ def buscarStock(request):
         return render(request, 'core/stock.html', {'stock': stock})
     else:
         return render(request, 'core/stock.html')
+    
+def valorDolar():
+    
+    url_servicio = 'https://si3.bcentral.cl/SieteRestWS/SieteRestWS.ashx?user=abelx3678@gmail.com&pass=iMb2aUmdez.bYua&firstdate=2024-05-09&lastdate=&timeseries=F073.TCO.PRE.Z.D&function=GetSeries'
+    respuesta = requests.get(url_servicio)
+    if respuesta.status_code == 200:
+        return respuesta.json()
+    else:
+        return None 
