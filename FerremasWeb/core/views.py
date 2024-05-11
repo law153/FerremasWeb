@@ -342,13 +342,7 @@ def mostrarProductos(request, id_cate):
 
     productos = obtener_productos_cate(id_cate)
 
-    cambio = valorDolar()
-
-    cambio = cambio['Series']
-    cambio = cambio['Obs']
-    cambio = cambio[-1]
-    valorDelDolar = cambio['value']
-    valorDelDolar = float(valorDelDolar)
+    valorDelDolar = darValorDolar()
     
     
     rol = request.session.get('rol',0)
@@ -358,6 +352,17 @@ def mostrarProductos(request, id_cate):
     return render(request, 'core/productos.html',contexto)
 
 
+def darValorDolar():
+
+    cambio = valorDolar()
+    cambio = cambio['Series']
+    cambio = cambio['Obs']
+    cambio = cambio[-1]
+    valorDelDolar = cambio['value']
+    valorDelDolar = float(valorDelDolar)
+
+    return valorDelDolar
+
 def mostrarProducto(request, id_prod):
 
     categorias = obtener_categorias()
@@ -366,10 +371,11 @@ def mostrarProducto(request, id_prod):
 
     stock = obtener_stock(id_prod)
     
+    valorDelDolar = darValorDolar()
 
     rol = request.session.get('rol',0)
 
-    contexto = {"categorias" : categorias, "rol": rol, "producto": producto, "stock" : stock}
+    contexto = {"categorias" : categorias, "rol": rol, "producto": producto, "stock" : stock, "dolar" : valorDelDolar}
 
     return render(request, 'core/producto.html',contexto)
 
@@ -421,6 +427,7 @@ def mostrarCarrito(request):
     carrito = obtener_venta(usuario1['id_usuario'], 'ACTIVO')
     
 
+
     if carrito:
         carrito = carrito[0]
         detalles = obtener_detallesVenta(carrito['id_venta'])
@@ -435,8 +442,8 @@ def mostrarCarrito(request):
                     
             totalV += i['subtotal']
         modificar_total_carrito(carrito['id_venta'], totalV)
-        
-        contexto = {"categorias" : categorias, "carrito" : detalles, "venta" : carrito}
+        valorDelDolar = darValorDolar()
+        contexto = {"categorias" : categorias, "carrito" : detalles, "venta" : carrito, "dolar" : valorDelDolar}
         if not detalles:
             modificar_estado_carrito(carrito['id_venta'],'INACTIVO')
             

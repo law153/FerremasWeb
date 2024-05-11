@@ -1,5 +1,6 @@
 {% extends 'core/plantillaCategorias.html'%}
 {% load static %}
+{% load custom_filters %}
 
 {% block titulo %}
     <title>Producto</title>
@@ -27,6 +28,7 @@
                 <p class="text-muted">{{ p.marca }}</p>
                 <p>{{ p.descripcion }}</p>
                 <p><strong>Precio:</strong> $ {{ p.precio }}</p>
+                <p><strong>Precio en dolares:</strong> {{ p.precio|divide_by:dolar|floatformat:2 }} $</p>
                 <p><strong>Stock:</strong> {{ stock.stock_total }}</p>
                 {% if rol == 0 %}
                     <a href="{% url 'mostrarLogin' %}" class="btn btn-primary">Iniciar sesión</a>

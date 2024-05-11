@@ -1,5 +1,6 @@
 {% extends 'core/plantillaCategorias.html'%}
 {% load static %}
+{% load custom_filters %}
 
 {% block titulo %}
     <title>Carrito</title>
@@ -22,6 +23,7 @@
                 <div class="col-md-4 d-flex flex-column justify-content-center">
                     <h2>{{ i.producto.nombre_prod }}</h2>
                     <p class="mb-0">${{ i.subtotal }}</p>
+                    <p class="mb-0">{{ i.subtotal|divide_by:dolar|floatformat:2 }} $</p>
                 </div>
                 <div class="col-md-2 d-flex flex-column justify-content-center align-items-end">
 
@@ -50,6 +52,7 @@
             <div class="col-md-2"></div>
             <div class="col-md-4 d-flex justify-content">
                 <p class="mb-0"><strong>Total:</strong> $ {{ venta.total }}</p>
+                <p class="mb-0"><strong>Total en dolares:</strong> {{ venta.total|divide_by:dolar|floatformat:2 }} $</p>
             </div>
             <div class="col-md-4 d-flex justify-content">
                 <form name="pagar-form" id="pagar-boton" method="POST" action="#">
