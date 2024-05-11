@@ -349,11 +349,8 @@ def mostrarProductos(request, id_cate):
     cambio = cambio[-1]
     valorDelDolar = cambio['value']
     valorDelDolar = float(valorDelDolar)
-
-    print(type(valorDelDolar))
-    print(valorDelDolar)
     
-
+    
     rol = request.session.get('rol',0)
 
     contexto = {"categorias" : categorias, "rol": rol, "productos": productos, "dolar" : valorDelDolar}

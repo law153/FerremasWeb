@@ -1,5 +1,6 @@
 {% extends 'core/plantillaCategorias.html'%}
 {% load static %}
+{% load custom_filters %}
 
 {% block titulo %}
     <title>Productos</title>
@@ -21,7 +22,7 @@
                         <h5 class="card-title">{{ producto.nombre_prod }}</h5>
                         <p class="card-text">{{ producto.marca }}</p>
                         <p class="card-text"> $ {{ producto.precio }}</p>
-                        <p class="card-text">Valor en dolares: {{ dolar }} $</p>
+                        <p class="card-text">Valor en dólares: {{ producto.precio|divide_by:dolar|floatformat:2 }} $</p>
                         <a href="{% url 'mostrarProducto' producto.cod_prod %}" class="btn btn-primary">Ver producto</a>
                     </div>
                 </div>
