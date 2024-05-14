@@ -2,101 +2,119 @@
 {% load static %}
 
 {% block titulo %}
-    <title>Crear cuenta</title>
+<title>Crear cuenta</title>
 {% endblock titulo %}
 
 {% block disenos %}
-    <link rel="stylesheet" type="text/css" href="{% static  'core/css/general.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static  'core/css/general.css'%}">
 {% endblock disenos %}
 
 {% block cuerpo %}
 
+<div class="container mt-5">
+
     <form method="POST" action="{% url 'registrarUsuario' %}" class="mt-5">
         {% csrf_token %}
-
-        <div class="mb-3 row justify-content-center">
-            <label for="rut" class="col-md-3 col-form-label text-end">Rut</label>
-
+        <div class="row justify-content-center">
             <div class="col-md-6">
-                <input type="text" class="form-control" id="rut" name="rut" required>
-            </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-3 row justify-content-center">
 
-            <div class="col-md-1">
-                <input type="text" class="form-control" id="dvrut" name="dvrut" required>
-            </div>
-        </div>
+                            <div class="text-center">
+                                <img class="mb-4" src="{% static 'core/img/logo_negro.png' %}"
+                                    alt="La casa de las plantas" width="200" height="200">
 
-        <div class="mb-3 row justify-content-center">
-            <label for="nombre" class="col-md-3 col-form-label text-end">Nombre</label>
-            <div class="col-md-7">
-                <input type="text" class="form-control" id="nombre" name="nombre" required>
-            </div>
-        </div>
-        {% if rol == 5 %}
-            <div class="mb-3 row justify-content-center">
-                <label for="rol" class="col-md-3 col-form-label text-end">Rol</label>
-                <div class="col-md-7">
-                    <select id="rol" name="rol" class="form-select">
-                        {% for r in roles%}
-                            <option value="{{r.id_rol}}">{{r.nombre_rol}}</option>
-                        {% endfor %}
-                    </select>
+
+                                <h1 class="h3 mb-3 fw-normal">Crear cuenta</h1>
+                            </div><br><br>
+                            <label for="rut" class="col-md-3 col-form-label text-end">Rut</label>
+
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="rut" name="rut" required>
+                            </div>
+
+                            <div class="col-md-1">
+                                <input type="text" class="form-control" id="dvrut" name="dvrut" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row justify-content-center">
+                            <label for="nombre" class="col-md-3 col-form-label text-end">Nombre</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                            </div>
+                        </div>
+                        {% if rol == 5 %}
+                        <div class="mb-3 row justify-content-center">
+                            <label for="rol" class="col-md-3 col-form-label text-end">Rol</label>
+                            <div class="col-md-7">
+                                <select id="rol" name="rol" class="form-select">
+                                    {% for r in roles%}
+                                    <option value="{{r.id_rol}}">{{r.nombre_rol}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if rol == 0 %}
+                        <input hidden readonly id="rol" name="rol" value="1">
+                        {% endif %}
+                        <div class="mb-3 row justify-content-center">
+                            <label for="apellido" class="col-md-3 col-form-label text-end">Apellido</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control" id="apellido" name="apellido" required>
+                            </div>
+                        </div>
+                        <div class="mb-3 row justify-content-center">
+                            <label for="correo" class="col-md-3 col-form-label text-end">Correo electrónico</label>
+                            <div class="col-md-7">
+                                <input type="email" class="form-control" id="correo" name="correo" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row justify-content-center">
+                            <label for="telefono" class="col-md-3 col-form-label text-end">Telefono</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control" id="telefono" name="telefono" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row justify-content-center">
+                            <label for="direccion" class="col-md-3 col-form-label text-end">Dirección</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control" id="direccion" name="direccion" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row justify-content-center">
+                            <label for="clave" class="col-md-3 col-form-label text-end">Contraseña</label>
+                            <div class="col-md-7">
+                                <input type="password" class="form-control" id="clave" name="clave" required>
+                            </div>
+                        </div>
+                        <div class="mb-3 row justify-content-center">
+                            <label for="confirmarClave" class="col-md-3 col-form-label text-end">Confirmar contraseña</label>
+                            <div class="col-md-7">
+                                <input type="password" class="form-control" id="confirmarClave" name="confirmarClave"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-dark">Crear cuenta</button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        {% endif %}
-        {% if rol == 0 %}
-            <input hidden readonly id="rol" name="rol" value="1">
-        {% endif %}
-        <div class="mb-3 row justify-content-center">
-            <label for="apellido" class="col-md-3 col-form-label text-end">Apellido</label>
-            <div class="col-md-7">
-                <input type="text" class="form-control" id="apellido" name="apellido" required>
-            </div>
-        </div>
-        <div class="mb-3 row justify-content-center">
-            <label for="correo" class="col-md-3 col-form-label text-end">Correo electrónico</label>
-            <div class="col-md-7">
-                <input type="email" class="form-control" id="correo" name="correo" required>
-            </div>
-        </div>
-
-        <div class="mb-3 row justify-content-center">
-            <label for="telefono" class="col-md-3 col-form-label text-end">Telefono</label>
-            <div class="col-md-7">
-                <input type="text" class="form-control" id="telefono" name="telefono" required>
-            </div>
-        </div>
-
-        <div class="mb-3 row justify-content-center">
-            <label for="direccion" class="col-md-3 col-form-label text-end">Dirección</label>
-            <div class="col-md-7">
-                <input type="text" class="form-control" id="direccion" name="direccion" required>
-            </div>
-        </div>
-
-        <div class="mb-3 row justify-content-center">
-            <label for="clave" class="col-md-3 col-form-label text-end">Contraseña</label>
-            <div class="col-md-7">
-                <input type="password" class="form-control" id="clave" name="clave" required>
-            </div>
-        </div>
-        <div class="mb-3 row justify-content-center">
-            <label for="confirmarClave" class="col-md-3 col-form-label text-end">Confirmar contraseña</label>
-            <div class="col-md-7">
-                <input type="password" class="form-control" id="confirmarClave" name="confirmarClave" required>
-            </div>
-        </div>
-        
-        <div class="mb-3 row justify-content-center">
-            <div class="col-md-7">
-                <button type="submit" class="btn btn-primary">Crear cuenta</button>
             </div>
         </div>
     </form>
+    <br><br>
+</div>
 
 
 {% endblock cuerpo %}
-    
+
 {% block js %}
-    
+
 {% endblock js %}

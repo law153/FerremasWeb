@@ -10,25 +10,31 @@
 {% endblock disenos %}
 
 {% block cuerpo %}
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <form method="POST" action="{% url 'buscarStock' %}" enctype="application/x-www-form-urlencoded" class="mb-3">
-                    {% csrf_token %}
-                    <div class="input-group">
-                        <label for="codigo_producto">Código de Producto:</label>
-                        <input type="text" id="codigo_producto" name="codigo_producto" class="form-control" placeholder="Código de Producto" required>
-                        <button type="submit" class="btn btn-primary">Buscar Stock</button>
-                    </div>
-                </form>
-                {% if stock %}
-                    <div class="alert alert-success" role="alert">
-                        Stock Disponible: {{ stock.stock_total }}
-                    </div>
-                {% endif %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Stock inventario</h5>
+                    <form method="POST" action="{% url 'buscarStock' %}" enctype="application/x-www-form-urlencoded" class="mb-3">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <label for="codigo_producto" class="input-group-text">Código de Producto:</label>
+                            <input type="text" id="codigo_producto" name="codigo_producto" class="form-control" placeholder="Código de Producto" required>
+                            <button type="submit" class="btn btn-primary">Buscar Stock</button>
+                        </div>
+                    </form>
+                    {% if stock %}
+                        <div class="alert alert-success" role="alert">
+                            Stock Disponible: {{ stock.stock_total }}
+                        </div>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
+</div>
+
 {% endblock cuerpo %}
     
 {% block js %}

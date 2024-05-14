@@ -35,7 +35,7 @@ def obtener_consultas():
         return None
 
 def obtener_productos_cate(id_cate):
-    url_servicio = f'http://localhost:8000/api/productos/?categoria={id_cate}'
+    url_servicio = f'http://127.0.0.1:8000/api/productos/?categoria={id_cate}'
     print(url_servicio)
     respuesta = requests.get(url_servicio)
     if respuesta.status_code == 200:
@@ -44,7 +44,7 @@ def obtener_productos_cate(id_cate):
         return None 
     
 def obtener_producto(id_prod):
-    url_servicio = f'http://localhost:8000/api/producto/?cod_prod={id_prod}'
+    url_servicio = f'http://127.0.0.1:8000/api/producto/?cod_prod={id_prod}'
     print(url_servicio)
     respuesta = requests.get(url_servicio)
     if respuesta.status_code == 200:
@@ -53,7 +53,7 @@ def obtener_producto(id_prod):
         return None 
 
 def obtener_stock(cod_prod):
-    url_servicio = f'http://localhost:8000/api/stock-producto/?producto={cod_prod}'
+    url_servicio = f'http://127.0.0.1:8000/api/stock-producto/?producto={cod_prod}'
     respuesta = requests.get(url_servicio)
     if respuesta.status_code == 200:
         return respuesta.json()
@@ -61,7 +61,7 @@ def obtener_stock(cod_prod):
         return None 
 
 def obtener_usuario(correo):
-    url_servicio = f'http://localhost:8000/api/usuarioC/{correo}'
+    url_servicio = f'http://127.0.0.1:8000/api/usuarioC/{correo}'
     respuesta = requests.get(url_servicio)
     if respuesta.status_code == 200:
         return respuesta.json()
@@ -69,7 +69,7 @@ def obtener_usuario(correo):
         return None 
 
 def obtener_usuarioRut(rut):
-    url_servicio = f'http://localhost:8000/api/usuarioR/{rut}'
+    url_servicio = f'http://127.0.0.1:8000/api/usuarioR/{rut}'
     respuesta = requests.get(url_servicio)
     if respuesta.status_code == 200:
         return respuesta.json()
