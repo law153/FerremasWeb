@@ -95,8 +95,9 @@
         <div class="row mt-5 border border-dark">
             <div class="col-md-2"></div>
             <div class="col-md-8 d-flex justify-content">
-                <form name="cambiar-estado" id="cambiar-estado" method="POST" action="{% url 'pagandoCarrito' venta.id_venta %}">
+                <form name="cambiar-estado" id="cambiar-estado" method="POST" action="{% url 'pagarConWebpay' %}">
                     {% csrf_token %}
+                    <input type="hidden" name="total_webpay" value="{{ venta.total }}">
                     <button type="submit" class="btn btn-success ml-2">Pagar con Webpay</button>
                 </form>
             </div>

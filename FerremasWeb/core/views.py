@@ -5,6 +5,7 @@ import requests
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth import authenticate,login, logout
+import json
 
 # Create your views here.
 
@@ -685,6 +686,22 @@ def enviarConsulta(request):
 
     return redirect('mostrarConsultas')
 
+def pagarConWebpay(request):
+
+    orden_compra = "Ferre12121"
+    sesion = "Ferres55552"
+    monto = request.POST['total_webpay']
+
+    response_dict = pagarWebpay(orden_compra, sesion, monto)
+
+    if response_dict:
+        url = response_dict['url']
+        token = response_dict['token']
+        print(f'{url}/?token={token}')
+        return redirect(f'{url}/?token={token}')
+    else:
+        return redirect('mostrarIndex')
+
 def buscarStock(request):
     if request.method == 'POST':
         codigo_producto = request.POST.get('codigo_producto')
@@ -701,3 +718,31 @@ def valorDolar():
         return respuesta.json()
     else:
         return None 
+    
+def pagarWebpay(orden_compra, sesion_id, monto):
+    headers = {
+        "Tbk-Api-Key-Id": "597055555532",
+        "Tbk-Api-Key-Secret": "579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C",
+        "Content-Type": "application/json"
+    }
+
+    data = {
+        "buy_order": orden_compra,
+        "session_id": sesion_id,
+        "amount": monto,
+        "return_url": "http://127.0.0.1:8001/"
+    }
+
+    url_servicio = 'https://webpay3gint.transbank.cl/rswebpaytransaction/api/webpay/v1.2/transactions'
+    respuesta = requests.post(url_servicio, data=json.dumps(data), headers=headers)
+
+    response_dict = {
+        'token': respuesta.json()['token'],
+        'url': respuesta.json()['url']
+    }
+    return response_dict
+
+
+
+
+    

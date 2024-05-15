@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'FerremasWeb.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
-        'NAME': '127.0.0.1/orcl',
+        'NAME': '127.0.0.1/orcl1',
         'USER': 'ferremas2',
         'PASSWORD': 'ferremas2',
         'TEST':{
