@@ -698,7 +698,7 @@ def pagarConWebpay(request):
         url = response_dict['url']
         token = response_dict['token']
         print(f'{url}/?token={token}')
-        return redirect(f'{url}/?token={token}')
+        return redirect(f'{url}/{token}')
     else:
         return redirect('mostrarIndex')
 
@@ -732,7 +732,7 @@ def pagarWebpay(orden_compra, sesion_id, monto):
         "amount": monto,
         "return_url": "http://127.0.0.1:8001/"
     }
-
+    print(data)
     url_servicio = 'https://webpay3gint.transbank.cl/rswebpaytransaction/api/webpay/v1.2/transactions'
     respuesta = requests.post(url_servicio, data=json.dumps(data), headers=headers)
 
