@@ -729,13 +729,15 @@ def pagarWebpay(orden_compra, sesion_id, monto):
     data = {
         "buy_order": orden_compra,
         "session_id": sesion_id,
-        "amount": monto,
+        "amount": int(monto),
         "return_url": "http://127.0.0.1:8001/"
     }
     print(data)
     url_servicio = 'https://webpay3gint.transbank.cl/rswebpaytransaction/api/webpay/v1.2/transactions'
     respuesta = requests.post(url_servicio, data=json.dumps(data), headers=headers)
-
+    print(respuesta.status_code)
+    print(respuesta.json())
+    print(respuesta.raise_for_status())
     response_dict = {
         'token': respuesta.json()['token'],
         'url': respuesta.json()['url']
