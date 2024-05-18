@@ -47,6 +47,22 @@
             
             
         {% endfor %}
+
+        <div class="row mt-5 border border-dark">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 d-flex justify-content-center">
+                <h2>Total de la compra: ${{ venta.total }}</h2>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+
+        <div class="row mt-5 border border-dark">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 d-flex justify-content-center">
+                <h2>Total en dolares: {{ venta.total|divide_by:dolar|floatformat:2 }}$</h2>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
         
         <div class="row mt-5 border border-dark">
             <div class="col-md-2"></div>
