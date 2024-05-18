@@ -706,6 +706,44 @@ def mostrarIrPagar(request, total):
 
     return render(request, 'core/irPagar.html',contexto)
     
+def mostrarRetorno(request):
+
+    token_ws = request.GET.get('token_ws', None)
+
+    print(token_ws)
+
+    categorias = obtener_categorias()
+
+    rol = request.session.get('rol', 0)
+    
+    url_confirmacion = f"https://webpay3gint.transbank.cl/rswebpaytransaction/api/webpay/v1.2/transactions/{token_ws}"
+    headers = {
+        "Tbk-Api-Key-Id": "597055555532",
+        "Tbk-Api-Key-Secret": "579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C",
+        "Content-Type": "application/json"
+    }
+
+    response = requests.put(url_confirmacion, headers=headers)
+    print(response.status_code)
+
+    if response.status_code == 200:
+        response_data = response.json()
+        contexto = {"categorias": categorias, "rol": rol, 'data': response_data}
+
+        if response_data['status'] == 'AUTHORIZED':
+            # Transacción exitosa
+            print("Redirección exitosa")
+            print(response_data)
+            return render(request, 'core/retorno.html', contexto)
+        else:
+            # Transacción fallida
+            print("Redirección fallida")
+            print(response_data)
+            return render(request, 'core/fallo.html', contexto)
+    else:
+        # Error en la confirmación
+        print('Error')
+        return render(request, 'core/error.html')
 
 def buscarStock(request):
     if request.method == 'POST':
@@ -735,7 +773,7 @@ def pagarWebpay(orden_compra, sesion_id, monto):
         "buy_order": orden_compra,
         "session_id": sesion_id,
         "amount": int(monto),
-        "return_url": "http://127.0.0.1:8001/"
+        "return_url": "http://127.0.0.1:8001/retorno/"
     }
     print(data)
     url_servicio = 'https://webpay3gint.transbank.cl/rswebpaytransaction/api/webpay/v1.2/transactions'
