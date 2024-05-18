@@ -686,21 +686,26 @@ def enviarConsulta(request):
 
     return redirect('mostrarConsultas')
 
-def pagarConWebpay(request):
+    
+def mostrarIrPagar(request, total):
+
+    categorias = obtener_categorias()
+
+    rol = request.session.get('rol',0)
 
     orden_compra = "Ferre12121"
     sesion = "Ferres55552"
-    monto = request.POST['total_webpay']
+    monto = total
 
-    response_dict = pagarWebpay(orden_compra, sesion, monto)
+    respuesta = pagarWebpay(orden_compra, sesion, monto)
 
-    if response_dict:
-        url = response_dict['url']
-        token = response_dict['token']
-        print(f'{url}/?token={token}')
-        return redirect(f'{url}/{token}')
-    else:
-        return redirect('mostrarIndex')
+    url = respuesta['url']
+    token = respuesta['token']
+
+    contexto = {"categorias" : categorias, "rol": rol, "token": token, "url": url, "total": total} 
+
+    return render(request, 'core/irPagar.html',contexto)
+    
 
 def buscarStock(request):
     if request.method == 'POST':
@@ -730,7 +735,7 @@ def pagarWebpay(orden_compra, sesion_id, monto):
         "buy_order": orden_compra,
         "session_id": sesion_id,
         "amount": int(monto),
-        "return_url": "http://127.0.0.1:8001/"
+        "return_url": "https://60c3-200-112-38-152.ngrok-free.app"
     }
     print(data)
     url_servicio = 'https://webpay3gint.transbank.cl/rswebpaytransaction/api/webpay/v1.2/transactions'
@@ -738,11 +743,8 @@ def pagarWebpay(orden_compra, sesion_id, monto):
     print(respuesta.status_code)
     print(respuesta.json())
     print(respuesta.raise_for_status())
-    response_dict = {
-        'token': respuesta.json()['token'],
-        'url': respuesta.json()['url']
-    }
-    return response_dict
+
+    return respuesta.json()
 
 
 

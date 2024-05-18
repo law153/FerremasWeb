@@ -8,7 +8,6 @@
 
 {% block disenos %}
     <link rel="stylesheet" type="text/css" href="{% static  'core/css/general.css'%}">
-    <script src="https://www.paypal.com/sdk/js?client-id=AczGthJPkhe4g6zvL1uIQLkbbV3jTWO_KZFpOXMc6ElR_hXvWCa6-uyVYlAJO6RoDZzRaH046xuXpmbG&currency=USD"></script>
 {% endblock disenos %}
 
 {% block cuerpo %}
@@ -48,58 +47,11 @@
             
             
         {% endfor %}
+        
         <div class="row mt-5 border border-dark">
             <div class="col-md-2"></div>
-            <div class="col-md-4 d-flex justify-content">
-                <p class="mb-0"><strong>Total:</strong> $ {{ venta.total }}</p>
-                <p class="mb-0"><strong>Total en dolares:</strong> {{ venta.total|divide_by:dolar|floatformat:2 }} $</p>
-            </div>
-            <div class="col-md-4 d-flex justify-content">
-                <form name="pagar-form" id="pagar-boton" method="POST" action="#">
-                    {% csrf_token %}
-                    <DIV id="paypal-button-container"></DIV>
-                    <script>
-                        var plata = "{{ venta.total }}";
-                        paypal.Buttons({
-                            style: {
-                                color: "silver",
-                                shape: "pill",
-                                label: "paypal",
-                            },
-                            createOrder: function (data, actions) {
-                                return actions.order.create({
-                                    purchase_units: [{
-                                        amount: {
-                                            value: plata
-                                        }
-                                    }]
-                                })
-                            },
-                            onApprove: function (data, actions) {
-                                actions.order.capture().then(function (detalles) {
-                                    document.getElementById("submit").disabled = false
-
-                                })
-                            },
-
-                            onCancel: function (data) {
-                                alert("Pago cancelado")
-                                console.log(data);
-                            },
-                        }).render('#paypal-button-container');
-                    </script>
-                </form>
-            </div>
-            <div class="col-md-2"></div>
-        </div>
-        <div class="row mt-5 border border-dark">
-            <div class="col-md-2"></div>
-            <div class="col-md-8 d-flex justify-content">
-                <form name="cambiar-estado" id="cambiar-estado" method="POST" action="{% url 'pagarConWebpay' %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="total_webpay" value="{{ venta.total }}">
-                    <button type="submit" class="btn btn-success ml-2">Pagar con Webpay</button>
-                </form>
+            <div class="col-md-8 d-flex justify-content-center">
+                <a href="{% url 'mostrarIrPagar' venta.total %}" class="btn btn-success ml-2" >Pagar con webpay</a>
             </div>
             <div class="col-md-2"></div>
         </div>

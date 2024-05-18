@@ -1,0 +1,38 @@
+{% extends 'core/plantillaCategorias.html'%}
+{% load static %}
+
+{% block titulo %}
+<title>Pagar</title>
+{% endblock titulo %}
+
+{% block disenos %}
+<link rel="stylesheet" type="text/css" href="{% static  'core/css/general.css'%}">
+{% endblock disenos %}
+
+{% block cuerpo %} 
+
+    <div class="row mt-5 border border-dark">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 d-flex justify-content-center">
+            <h1>Total de la compra: ${{ total }}</h1>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    <div class="row mt-5 border border-dark">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 d-flex justify-content-center">
+            <form method="POST" action="{{ url }}">
+                {% csrf_token %}
+                <input type="hidden" name="token_ws" value="{{ token }}">
+                <input type="submit" value="Pagar"/>
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+{% endblock cuerpo %}
+
+{% block js %}
+
+{% endblock js %}
