@@ -638,17 +638,13 @@ def sumarStock(request, cod_prod):
     return redirect(url_con_parametro)
 
 
-def restarStock(request, cod_prod):
+def restarStock( cod_prod, cantidad):
 
     tipo_transaccion = "Retirar"
-    cantidad = request.POST['quitar']
     producto = cod_prod
     fecha_hoy = date.today()
 
-    url_con_parametro = reverse('mostrarProducto', kwargs={'id_prod': producto})
-
     crearTransaccion(tipo_transaccion, cantidad, producto, fecha_hoy)
-    return redirect(url_con_parametro)
 
 
 def crearUnProducto(request):
@@ -711,10 +707,6 @@ def mostrarRetorno(request):
     token_ws = request.GET.get('token_ws', None)
 
     print(token_ws)
-
-    categorias = obtener_categorias()
-
-    rol = request.session.get('rol', 0)
     
     url_confirmacion = f"https://webpay3gint.transbank.cl/rswebpaytransaction/api/webpay/v1.2/transactions/{token_ws}"
     headers = {
@@ -727,18 +719,43 @@ def mostrarRetorno(request):
     print(response.status_code)
 
     if response.status_code == 200:
+
+        rol = request.session.get('rol', 0)
+
+        categorias = obtener_categorias()
+
         response_data = response.json()
         contexto = {"categorias": categorias, "rol": rol, 'data': response_data}
 
         if response_data['status'] == 'AUTHORIZED':
             # Transacción exitosa
-            print("Redirección exitosa")
-            print(response_data)
+            
+            username = request.session.get('username')
+            usuario1 = obtener_usuario(username)
+
+            carrito = obtener_venta(usuario1['id_usuario'], 'ACTIVO')
+            carrito = carrito[0]
+            id_venta = carrito['id_venta']
+            print(carrito)
+            detalles = obtener_detallesVenta(carrito['id_venta'])
+            for i in detalles:
+                print(i)
+                cantidad = i['cantidad']
+                print(cantidad)
+                producto = i['producto']
+
+                cod_prod = producto['cod_prod']
+                print(cod_prod)
+                print(producto)
+                restarStock(cod_prod, cantidad)
+
+            modificar_estado_carrito(id_venta, 'COMPRADO')
+
             return render(request, 'core/retorno.html', contexto)
         else:
             # Transacción fallida
             print("Redirección fallida")
-            print(response_data)
+            
             return render(request, 'core/fallo.html', contexto)
     else:
         # Error en la confirmación

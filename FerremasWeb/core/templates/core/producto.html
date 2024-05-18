@@ -66,12 +66,7 @@
                             <button type="submit" class="btn btn-success">Agregar</button>
                         </form>
                     
-                        <form name="restar" id="boton-cant2" method="POST" action="{% url 'restarStock' p.cod_prod%}"
-                            class="d-flex align-items-center p-2">
-                            {% csrf_token %}
-                            <input type="number" min="1" value="1" name="quitar" id="quitar" class="form-control mr-2">
-                            <button type="submit" class="btn btn-danger">Quitar</button>
-                        </form>
+                        
                     </div>
                     
 
