@@ -12,7 +12,7 @@ import json
 
 ###Funciones de API
 def obtener_categorias():
-    url_servicio = 'http://192.168.64.251:8000/api/categorias/'
+    url_servicio = 'http://127.0.0.1:8000/api/categorias/'
     respuesta = requests.get(url_servicio)
     if respuesta.status_code == 200:
         return respuesta.json()
@@ -20,7 +20,7 @@ def obtener_categorias():
         return None
 
 def obtener_roles():
-    url_servicio = 'http://192.168.64.251:8000/api/roles/'
+    url_servicio = 'http://127.0.0.1:8000/api/roles/'
     respuesta = requests.get(url_servicio)
     if respuesta.status_code == 200:
         return respuesta.json()
@@ -28,7 +28,7 @@ def obtener_roles():
         return None
 
 def obtener_consultas():
-    url_servicio = 'http://192.168.64.251:8000/api/consultas/'
+    url_servicio = 'http://127.0.0.1:8000/api/consultas/'
     respuesta = requests.get(url_servicio)
     if respuesta.status_code == 200:
         return respuesta.json()
@@ -36,7 +36,7 @@ def obtener_consultas():
         return None
 
 def obtener_productos_cate(id_cate):
-    url_servicio = f'http://192.168.64.251:8000/api/productos/?categoria={id_cate}'
+    url_servicio = f'http://127.0.0.1:8000/api/productos/?categoria={id_cate}'
     print(url_servicio)
     respuesta = requests.get(url_servicio)
     if respuesta.status_code == 200:
@@ -45,7 +45,7 @@ def obtener_productos_cate(id_cate):
         return None 
     
 def obtener_producto(id_prod):
-    url_servicio = f'http://192.168.64.251:8000/api/producto/?cod_prod={id_prod}'
+    url_servicio = f'http://127.0.0.1:8000/api/producto/?cod_prod={id_prod}'
     print(url_servicio)
     respuesta = requests.get(url_servicio)
     if respuesta.status_code == 200:
@@ -54,7 +54,7 @@ def obtener_producto(id_prod):
         return None 
 
 def obtener_stock(cod_prod):
-    url_servicio = f'http://192.168.64.251:8000/api/stock-producto/?producto={cod_prod}'
+    url_servicio = f'http://127.0.0.1:8000/api/stock-producto/?producto={cod_prod}'
     respuesta = requests.get(url_servicio)
     if respuesta.status_code == 200:
         return respuesta.json()
@@ -62,7 +62,7 @@ def obtener_stock(cod_prod):
         return None 
 
 def obtener_usuario(correo):
-    url_servicio = f'http://192.168.64.251:8000/api/usuarioC/{correo}'
+    url_servicio = f'http://127.0.0.1:8000/api/usuarioC/{correo}'
     respuesta = requests.get(url_servicio)
     if respuesta.status_code == 200:
         return respuesta.json()
@@ -70,7 +70,7 @@ def obtener_usuario(correo):
         return None 
 
 def obtener_usuarioRut(rut):
-    url_servicio = f'http://192.168.64.251:8000/api/usuarioR/{rut}'
+    url_servicio = f'http://127.0.0.1:8000/api/usuarioR/{rut}'
     respuesta = requests.get(url_servicio)
     if respuesta.status_code == 200:
         return respuesta.json()
@@ -78,7 +78,7 @@ def obtener_usuarioRut(rut):
         return None 
 
 def obtener_venta(usuario, estado):
-    url_servicio = f'http://192.168.64.251:8000/api/filtrar-carrito/?usuario={usuario}&estado={estado}'
+    url_servicio = f'http://127.0.0.1:8000/api/filtrar-carrito/?usuario={usuario}&estado={estado}'
     respuesta = requests.get(url_servicio)
     if respuesta.status_code == 200:
         
@@ -87,7 +87,7 @@ def obtener_venta(usuario, estado):
         return None  
     
 def buscarVentas_estado(estado):
-    url_servicio = f'http://192.168.64.251:8000/api/ventas-estado/?estado={estado}'
+    url_servicio = f'http://127.0.0.1:8000/api/ventas-estado/?estado={estado}'
     respuesta = requests.get(url_servicio)
     if respuesta.status_code == 200:
         
@@ -96,7 +96,7 @@ def buscarVentas_estado(estado):
         return None 
 
 def obtener_detallesVenta(venta):
-    url_servicio = f'http://192.168.64.251:8000/api/detalles-carrito/?venta={venta}'
+    url_servicio = f'http://127.0.0.1:8000/api/detalles-carrito/?venta={venta}'
     respuesta = requests.get(url_servicio)
     if respuesta.status_code == 200:
         return respuesta.json()
@@ -104,7 +104,7 @@ def obtener_detallesVenta(venta):
         return None
     
 def obtener_detallesId(id):
-    url_servicio = f'http://192.168.64.251:8000/api/detalles-id-carrito/?id_detalle={id}'
+    url_servicio = f'http://127.0.0.1:8000/api/detalles-id-carrito/?id_detalle={id}'
     respuesta = requests.get(url_servicio)
     if respuesta.status_code == 200:
         return respuesta.json()
@@ -112,7 +112,7 @@ def obtener_detallesId(id):
         return None
     
 def buscar_DetallesCarrito(venta, cod_prod):
-    url_servicio = f'http://192.168.64.251:8000/api/detalles-buscar-carrito/?venta={venta}&producto={cod_prod}'
+    url_servicio = f'http://127.0.0.1:8000/api/detalles-buscar-carrito/?venta={venta}&producto={cod_prod}'
     respuesta = requests.get(url_servicio)
     if respuesta.status_code == 200:
         return respuesta.json()
@@ -120,7 +120,7 @@ def buscar_DetallesCarrito(venta, cod_prod):
         return None
 
 def modificar_total_carrito(id_venta, nuevo_total):
-    url_servicio = f'http://192.168.64.251:8000/api/venta/{id_venta}/'
+    url_servicio = f'http://127.0.0.1:8000/api/venta/{id_venta}/'
     data = {'total': nuevo_total}  # Datos a enviar en la solicitud
 
     # Realizar la solicitud POST para modificar el total del carrito
@@ -132,7 +132,7 @@ def modificar_total_carrito(id_venta, nuevo_total):
         print('Hubo un error al modificar el total del carrito.')
 
 def modificar_estado_carrito(id_venta, estado):
-    url_servicio = f'http://192.168.64.251:8000/api/venta/{id_venta}/'
+    url_servicio = f'http://127.0.0.1:8000/api/venta/{id_venta}/'
     data = {'estado': estado}  # Datos a enviar en la solicitud
 
     # Realizar la solicitud POST para modificar el total del carrito
@@ -144,7 +144,7 @@ def modificar_estado_carrito(id_venta, estado):
         print('Hubo un error al modificar el estado del carrito.')
 
 def modificar_carrito_carrito(id_venta, carrito):
-    url_servicio = f'http://192.168.64.251:8000/api/venta/{id_venta}/'
+    url_servicio = f'http://127.0.0.1:8000/api/venta/{id_venta}/'
     data = {'carrito': carrito}  # Datos a enviar en la solicitud
 
     # Realizar la solicitud POST para modificar el total del carrito
@@ -156,7 +156,7 @@ def modificar_carrito_carrito(id_venta, carrito):
         print('Hubo un problema en carrito_carrito')
 
 def modificar_cantidad_detalle(id_detalle, nueva_cantidad):
-    url_servicio = f'http://192.168.64.251:8000/api/detalle/{id_detalle}/'
+    url_servicio = f'http://127.0.0.1:8000/api/detalle/{id_detalle}/'
     data = {'cantidad': nueva_cantidad}  # Datos a enviar en la solicitud
 
     # Realizar la solicitud PUT para modificar la cantidad del detalle
@@ -168,7 +168,7 @@ def modificar_cantidad_detalle(id_detalle, nueva_cantidad):
         print('Hubo un error al modificar la cantidad del detalle.')
 
 def modificar_subtotal_detalle(id_detalle, nuevo_subtotal):
-    url_servicio = f'http://192.168.64.251:8000/api/detalle/{id_detalle}/'
+    url_servicio = f'http://127.0.0.1:8000/api/detalle/{id_detalle}/'
     data = {'subtotal': nuevo_subtotal}  # Datos a enviar en la solicitud
 
     # Realizar la solicitud PUT para modificar el subtotal del detalle
@@ -187,7 +187,7 @@ def crearTransaccion(tipo_transaccion, cantidad, producto, fecha):
     'producto': producto
     }
 
-    url_servicio = 'http://192.168.64.251:8000/api/crear-transaccion/'
+    url_servicio = 'http://127.0.0.1:8000/api/crear-transaccion/'
 
     respuesta = requests.post(url_servicio, data=data)
 
@@ -203,7 +203,7 @@ def crearConsulta(nombre, asunto, mensaje):
     'mensaje_consulta' : mensaje
     }
     print(data)
-    url_servicio = 'http://192.168.64.251:8000/api/crear-consulta/'
+    url_servicio = 'http://127.0.0.1:8000/api/crear-consulta/'
 
     respuesta = requests.post(url_servicio, data=data)
 
@@ -220,7 +220,7 @@ def crearDetalle(cantidad, subtotal, venta, producto):
     'producto': producto  
     }
 
-    url_servicio = 'http://192.168.64.251:8000/api/crear-detalle/'
+    url_servicio = 'http://127.0.0.1:8000/api/crear-detalle/'
 
     respuesta = requests.post(url_servicio, data=data)
 
@@ -240,7 +240,7 @@ def crearVenta(fecha_venta, estado, fecha_entrega, total, carrito, usuario):
     'usuario' : usuario
     }
 
-    url_servicio = 'http://192.168.64.251:8000/api/crear-venta/'
+    url_servicio = 'http://127.0.0.1:8000/api/crear-venta/'
 
     respuesta = requests.post(url_servicio, data=data)
 
@@ -265,7 +265,7 @@ def crearProducto(nombre, descripcion, precio, marca, imagen, unidad, categoria)
         'foto_prod': imagen
     }
 
-    url_servicio = 'http://192.168.64.251:8000/api/crear-producto/'
+    url_servicio = 'http://127.0.0.1:8000/api/crear-producto/'
     
     respuesta = requests.post(url_servicio, data=data, files=files)
 
@@ -294,7 +294,7 @@ def crearUsuario(rut, activo, dvrut, nombre, apellido, telefono, correo, clave, 
     }
     
     print(data)
-    url_servicio = 'http://192.168.64.251:8000/api/crear-usuario/'
+    url_servicio = 'http://127.0.0.1:8000/api/crear-usuario/'
 
     respuesta = requests.post(url_servicio, data=data)
 
@@ -308,7 +308,7 @@ def crearUsuario(rut, activo, dvrut, nombre, apellido, telefono, correo, clave, 
 
 
 def eliminar_detalle(id_detalle):
-    url_servicio = f'http://192.168.64.251:8000/api/delete-detalle/?id_detalle={id_detalle}'
+    url_servicio = f'http://127.0.0.1:8000/api/delete-detalle/?id_detalle={id_detalle}'
     respuesta = requests.delete(url_servicio)
     if respuesta.status_code == 204:
         print('Detalle eliminado correctamente.')
@@ -790,7 +790,7 @@ def pagarWebpay(orden_compra, sesion_id, monto):
         "buy_order": orden_compra,
         "session_id": sesion_id,
         "amount": int(monto),
-        "return_url": "http://192.168.64.251:8001/retorno/"
+        "return_url": "http://127.0.0.1:8001/retorno/"
     }
     print(data)
     url_servicio = 'https://webpay3gint.transbank.cl/rswebpaytransaction/api/webpay/v1.2/transactions'
