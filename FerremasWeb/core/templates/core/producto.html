@@ -7,13 +7,12 @@
 {% endblock titulo %}
 
 {% block disenos %}
-<link rel="stylesheet" type="text/css" href="{% static  'core/css/general.css'%}">
-
+<link rel="stylesheet" type="text/css" href="{% static  'core/css/nuevocss.css'%}">
 <style>
     .fixed-size-img {
-        width: 400px; /* Ancho deseado */
-        height: 400px; /* Altura deseada */
-        object-fit: cover; /* Escalar la imagen manteniendo la relación de aspecto y recortando el exceso */
+        width: 400px; 
+        height: 400px; 
+        object-fit: cover; 
     }
 </style>
 {% endblock disenos %}
@@ -51,7 +50,7 @@
                     {% if rol == 1 %}
                     <form action="{% url 'agregarAlCarrito' %}" method="POST">
                         {% csrf_token %}
-                        <button class="btn btn-success">Agregar al carrito</button>
+                        <button class="btn btn-dark">Agregar al carrito</button>
                         <input type="hidden" name="codigo" value="{{ p.cod_prod }}">
                     </form>
                     {% endif %}
@@ -63,7 +62,7 @@
                             {% csrf_token %}
                             <input type="number" min="1" value="1" name="agregar" id="agregar"
                                 class="form-control mr-2">
-                            <button type="submit" class="btn btn-success">Agregar</button>
+                            <button type="submit" class="btn">Agregar</button>
                         </form>
                     
                         

@@ -7,46 +7,46 @@
 {% endblock titulo %}
 
 {% block disenos %}
-<link rel="stylesheet" type="text/css" href="{% static  'core/css/productos.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static  'core/css/nuevocss.css'%}">
 {% endblock disenos %}
 
 {% block cuerpo %}
 
 <section class="Productos my-5">
-    <div class="container">
-        <h2 class="my-3">Todos los productos</h2>
-    </div>
+  <div class="container">
+    <h2 class="my-3">Todos los productos</h2>
+  </div>
 
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-        <div class="col-md-2"></div>
-        {% for producto in productos %}
-        {% if forloop.counter0|divisibleby:4 %}
-        <div class="col-md-2"></div>
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+    <div class="col-md-2"></div>
+    {% for producto in productos %}
+    {% if forloop.counter0|divisibleby:4 %}
+    <div class="col-md-2"></div>
 
-    </div>
-    <br>
+  </div>
+  <br>
 
-    <div class="row">
-        <div class="col-md-2"></div>
-        {% endif %}
-        <div class="col-md-2">
-          <div class="card h-100 zoom">
-            <a href="{% url 'mostrarProducto' producto.cod_prod %}"><img src="{{ producto.foto_prod }}"
-                  class="card-img-top" style="height: 200px; width: 100%; object-fit: cover;" alt="Imagen"></a>
-            <div class="card-body">
-              <h5 class="card-title">{{ producto.nombre_prod }}</h5>
-              <p class="text-muted">{{ producto.marca }}</p>
-              <p class="card-text">Precio EN CLP: ${{ producto.precio }}</p>
-              <p class="card-text">Precio en USD: ${{ producto.precio|divide_by:dolar|floatformat:2 }}</p>
-              <a href="{% url 'mostrarProducto' producto.cod_prod %}" class="btn btn-dark">Ver producto</a>
-            </div>
-          </div>
+  <div class="row">
+    <div class="col-md-2"></div>
+    {% endif %}
+    <div class="col-md-2">
+      <div class="card h-100 zoom">
+        <a href="{% url 'mostrarProducto' producto.cod_prod %}"><img src="{{ producto.foto_prod }}" class="card-img-top"
+            style="height: 200px; width: 100%; object-fit: cover;" alt="Imagen"></a>
+        <div class="card-body">
+          <h5 class="card-title">{{ producto.nombre_prod }}</h5>
+          <p class="text-muted">{{ producto.marca }}</p>
+          <p class="card-text">Precio EN CLP: ${{ producto.precio }}</p>
+          <p class="card-text">Precio en USD: ${{ producto.precio|divide_by:dolar|floatformat:2 }}</p>
+          <a href="{% url 'mostrarProducto' producto.cod_prod %}" class="btn btn-dark">Ver producto</a>
         </div>
-        {% endfor %}
-        <div class="col-md-2"></div>
       </div>
-
     </div>
+    {% endfor %}
+    <div class="col-md-2"></div>
+  </div>
+
+  </div>
 </section>
 
 {% endblock cuerpo %}

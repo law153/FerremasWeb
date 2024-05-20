@@ -6,54 +6,43 @@
 {% endblock titulo %}
 
 {% block disenos %}
-<link rel="stylesheet" type="text/css" href="{% static  'core/css/general.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static  'core/css/nuevocss.css'%}">
 {% endblock disenos %}
 
-{% block cuerpo %} 
-    <div class="container border border-dark">
+{% block cuerpo %}
 
-        <div class="row mt-5">
-            <div class="col-md-2"></div>
-            <div class="col-md-8 d-flex justify-content-center">
-                <h1>Transacción Exitosa</h1>
+
+<br>
+
+<div class="container">
+    <div class="card text-center">
+        <div class="card-body">
+            <a><img src="{% static 'core/img/good.png' %}"" class=" card-img-top w-25" alt="Pago correcto"></a>
+            <h5 class="card-title mt-4">Transacción Exitosa</h5>
+            <div class="row mb-3">
+                <div class="col-md-12 text-center">
+                    <strong> Orden de compra:</strong>
+                    <p>{{ data.buy_order }}
+                    <p>
+                </div>
             </div>
-            <div class="col-md-2"></div>
-        </div>
-
-        <div class="row mt-5">
-            <div class="col-md-2"></div>
-            <div class="col-md-8 d-flex justify-content-center">
-                <h2>Orden de compra: {{ data.buy_order }}</h2>
+            <div class="row mb-3">
+                <div class="col-md-12 text-center">
+                    <strong>Monto:</strong>
+                    <p>${{ data.amount }}</p>
+                </div>
             </div>
-            <div class="col-md-2"></div>
-        </div>
-
-        <div class="row mt-5">
-            <div class="col-md-2"></div>
-            <div class="col-md-8 d-flex justify-content-center">
-                <h2>Monto: ${{ data.amount }}</h2>
+            <div class="row mb-3">
+                <div class="col-md-12 text-center">
+                    <strong>Fecha:</strong>
+                    <p> {{ data.transaction_date }}</p>
+                </div>
             </div>
-            <div class="col-md-2"></div>
+            <a href="{% url 'mostrarIndex' %}" class="btn">Volver a la tienda</a>
         </div>
-
-        <div class="row mt-5">
-            <div class="col-md-2"></div>
-            <div class="col-md-8 d-flex justify-content-center">
-                <h2>Fecha: {{ data.transaction_date }}</h2>
-            </div>
-            <div class="col-md-2"></div>
-        </div>
-
-        <div class="row mt-5">
-            <div class="col-md-2"></div>
-            <div class="col-md-8 d-flex justify-content-center">
-                <a href="{% url 'mostrarIndex' %}" class="btn btn-primary ml-2" >Volver a la pagina principal</a>
-            </div>
-            <div class="col-md-2"></div>
-        </div>
-
     </div>
-    
+</div><br>
+
 
 {% endblock cuerpo %}
 

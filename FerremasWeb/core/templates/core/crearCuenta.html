@@ -6,7 +6,7 @@
 {% endblock titulo %}
 
 {% block disenos %}
-<link rel="stylesheet" type="text/css" href="{% static  'core/css/general.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static  'core/css/nuevocss.css'%}">
 {% endblock disenos %}
 
 {% block cuerpo %}
@@ -16,7 +16,7 @@
     <form method="POST" action="{% url 'registrarUsuario' %}" class="mt-5">
         {% csrf_token %}
         <div class="row justify-content-center">
-            <div class="col-md-6">
+            <div class="col-md-7">
                 <div class="card">
                     <div class="card-body">
                         <div class="mb-3 row justify-content-center">
@@ -30,10 +30,12 @@
                             </div><br><br>
                             <label for="rut" class="col-md-3 col-form-label text-end">Rut</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <input type="text" class="form-control" id="rut" name="rut" required>
                             </div>
-
+                            <div class="col-md-1 text-center">
+                                <p>_</p>
+                            </div>
                             <div class="col-md-1">
                                 <input type="text" class="form-control" id="dvrut" name="dvrut" required>
                             </div>
@@ -94,7 +96,8 @@
                             </div>
                         </div>
                         <div class="mb-3 row justify-content-center">
-                            <label for="confirmarClave" class="col-md-3 col-form-label text-end">Confirmar contraseña</label>
+                            <label for="confirmarClave" class="col-md-3 col-form-label text-end">Confirmar
+                                contraseña</label>
                             <div class="col-md-7">
                                 <input type="password" class="form-control" id="confirmarClave" name="confirmarClave"
                                     required>

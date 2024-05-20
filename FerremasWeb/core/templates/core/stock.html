@@ -2,11 +2,11 @@
 {% load static %}
 
 {% block titulo %}
-    <title>Stock</title>
+<title>Stock</title>
 {% endblock titulo %}
 
 {% block disenos %}
-    <link rel="stylesheet" type="text/css" href="{% static  'core/css/general.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static  'core/css/nuevocss.css'%}">
 {% endblock disenos %}
 
 {% block cuerpo %}
@@ -16,18 +16,20 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title text-center">Stock inventario</h5>
-                    <form method="POST" action="{% url 'buscarStock' %}" enctype="application/x-www-form-urlencoded" class="mb-3">
+                    <form method="POST" action="{% url 'buscarStock' %}" enctype="application/x-www-form-urlencoded"
+                        class="mb-3">
                         {% csrf_token %}
                         <div class="input-group">
                             <label for="codigo_producto" class="input-group-text">Código de Producto:</label>
-                            <input type="text" id="codigo_producto" name="codigo_producto" class="form-control" placeholder="Código de Producto" required>
-                            <button type="submit" class="btn btn-primary">Buscar Stock</button>
+                            <input type="text" id="codigo_producto" name="codigo_producto" class="form-control"
+                                placeholder="Código de Producto" required>
+                            <button type="submit" class="btn btn-dark">Buscar Stock</button>
                         </div>
                     </form>
                     {% if stock %}
-                        <div class="alert alert-success" role="alert">
-                            Stock Disponible: {{ stock.stock_total }}
-                        </div>
+                    <div class="alert alert-success" role="alert">
+                        Stock Disponible: {{ stock.stock_total }}
+                    </div>
                     {% endif %}
                 </div>
             </div>
@@ -36,7 +38,7 @@
 </div>
 
 {% endblock cuerpo %}
-    
+
 {% block js %}
-    
+
 {% endblock js %}

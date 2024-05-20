@@ -2,11 +2,11 @@
 {% load static %}
 
 {% block titulo %}
-<title>Pagina Principal</title>
+<title>Inicio</title>
 {% endblock titulo %}
 
 {% block disenos %}
-<link rel="stylesheet" type="text/css" href="{% static  'core/css/general.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static  'core/css/nuevocss.css'%}">
 {% endblock disenos %}
 
 {% block cuerpo %}
@@ -37,7 +37,7 @@
     </div>
 </section>
 
-<div class="container">
+<div class="container-fluid px-0">
     {% if rol == 4 %}
     <div class="container">
         <div class="row"><br></div>
@@ -52,8 +52,6 @@
         </div>
         <div class="row"><br></div>
     </div>
-
-
     {% endif %}
 
     <section class="Nosotros">
@@ -78,6 +76,8 @@
                         nuestro inventario hasta el desarrollo de estrategias comerciales, cada aspecto de nuestra
                         operación
                         está respaldado por la experiencia y el compromiso con la excelencia.</p>
+                    <br>
+                    <br><br>
                 </div>
 
                 <div class="col-sm-12 col-md-6">
@@ -88,10 +88,138 @@
             </div>
 
         </div>
+    </section>
 
-
+    <section class="Valores" style="background-color: #000000; color: #ffffff;">
         <br>
+        <h2 class="text-center my-5">Nuestros Valores</h2>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-sm-12 col-md-6">
+                    <img class="mx-auto d-block" src="{% static 'core/img/valores.png' %}" alt="Valores" width="300"
+                        height="300">
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <p> En "FERREMAS", estamos comprometidos con una serie de valores que guían nuestra forma de
+                        trabajar y relacionarnos con nuestros clientes y colaboradores. </p>
+
+                    <ul>
+                        <li><strong>Calidad:</strong> Nos esforzamos por ofrecer productos y servicios de la más alta
+                            calidad en todo momento.</li>
+                        <li><strong>Servicio al Cliente:</strong> Valoramos la satisfacción del cliente sobre todas las
+                            cosas y nos esforzamos por brindar un servicio excepcional en cada interacción.</li>
+                        <li><strong>Integridad:</strong> Nos regimos por los más altos estándares éticos en todas
+                            nuestras operaciones y relaciones comerciales.</li>
+                        <li><strong>Innovación:</strong> Buscamos constantemente nuevas formas de mejorar y adaptarnos a
+                            las necesidades cambiantes del mercado.</li>
+                        <li><strong>Compromiso:</strong> Estamos comprometidos con la excelencia en todo lo que hacemos,
+                            desde la gestión de nuestro inventario hasta el desarrollo de relaciones duraderas con
+                            nuestros clientes.</li>
+                        <br>
+                        <br><br>
+                    </ul>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+    <section class="Testimonios">
+        <div class="container">
+            <h2 class="text-center my-5">Testimonios de Clientes</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card h-100 zoom">
+                        <div class="card-body">
+                            <p class="card-text">"Excelente servicio, muy satisfecho con los productos y la atención
+                                recibida."</p>
+                            <p class="card-text"><strong>- Juan Pérez</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 h-100 zoom">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-text">"Los productos de Ferremas son de la más alta calidad, ¡recomendados!"
+                            </p>
+                            <p class="card-text"><strong>- María González</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 h-100 zoom">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-text">"Excelente experiencia de compra, volveré a Ferremas sin duda."</p>
+                            <p class="card-text"><strong>- Carlos Rodríguez</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card h-100 zoom">
+                        <div class="card-body">
+                            <p class="card-text">"Ferremas siempre ha sido mi primera opción cuando necesito suministros
+                                de construcción. Excelente calidad y servicio."</p>
+                            <p class="card-text"><strong>- Laura Martínez</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 h-100 zoom">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-text">"¡Increíble experiencia de compra! Rápido y eficiente, nunca había
+                                visto una gestión de venta tan eficiente! sin duda volveré a comprar en Ferremas."</p>
+                            <p class="card-text"><strong>- Roberto Fernández</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 h-100 zoom">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-text">"La atención al cliente en Ferremas es insuperable. Siempre están
+                                dispuestos a ayudar y asesorar en la elección de productos."</p>
+                            <p class="card-text"><strong>- Ana López</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br><br><br>
+
+    <footer class="footer" style="background-color: #000000; color: #ffffff;">
+        <br>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Contacto</h5>
+                    <p>Correo electrónico: info@ferremas.com</p>
+                    <p>Teléfono: +56 9 39283920</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>Síguenos en Redes Sociales</h5>
+                    <ul class="list-unstyled">
+                        <li><a style="text-decoration: none; color: #ffffff;" href="#">Facebook</a></li>
+                        <li><a style="text-decoration: none; color: #ffffff;" href="#">Twitter</a></li>
+                        <li><a style="text-decoration: none; color: #ffffff;" href="#">Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>&copy;2024 Ferremas - Todos los derechos reservados</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
 </div>
+
 {% endblock cuerpo %}
 
 {% block js %}
