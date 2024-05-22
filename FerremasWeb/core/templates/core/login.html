@@ -6,7 +6,7 @@
 {% endblock titulo %}
 
 {% block disenos %}
-<link rel="stylesheet" type="text/css" href="{% static  'core/css/nuevocss.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static  'core/css/cssgrupo2.css'%}">
 {% endblock disenos %}
 
 {% block cuerpo %}
@@ -17,7 +17,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="text-center">
-                    <img class="mb-4" src="{% static 'core/img/logo_negro.png' %}" alt="La casa de las plantas"
+                    <img class="mb-4" src="{% static 'core/img/logonavi.png' %}" alt="La casa de las plantas"
                         width="200" height="200">
                     </div>
 
@@ -27,24 +27,21 @@
                         enctype="application/x-www-form-urlencoded">
                         {% csrf_token %}
                         <div class="mb-3">
-                            <label for="username" class="form-label">Nombre de usuario</label>
+                            <label for="username" class="form-label">Correo electrónico</label>
                             <input type="text" class="form-control" id="username" name="username"
-                                placeholder="Ingrese su nombre de usuario">
+                                placeholder="example@correo.com">
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Contraseña</label>
                             <input type="password" class="form-control" id="password" name="password"
-                                placeholder="Ingrese su contraseña">
+                                placeholder="********">
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-dark">Iniciar sesión</button>
                         </div>
                         <div class="text-center">
-                        <a>¿No tienes cuenta?</a><a href="{% url 'mostrarCrearCuenta' %}" style="color:#ffcc00" class="text-decoration-none">
-                            Regístrate</a>
-                        </div>
-                        <div class="text-center">
-                            <p class="mt-5 mb-3 text-muted">&copy;Ferremas 2024</p>
+                        <a>¿No eres parte de FERREMAS?</a><a href="{% url 'mostrarCrearCuenta' %}" style="color:#FFC107" class="text-decoration-none">
+                            Únete aquí</a>
                         </div>
                     </form>
                 </div>

@@ -7,7 +7,7 @@
 {% endblock titulo %}
 
 {% block disenos %}
-<link rel="stylesheet" type="text/css" href="{% static  'core/css/nuevocss.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static  'core/css/cssgrupo2.css'%}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 
@@ -20,7 +20,9 @@
         background-color: #fff;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
-    .carrito-total, .carrito-pago {
+
+    .carrito-total,
+    .carrito-pago {
         border: 1px solid #ddd;
         border-radius: 0.5rem;
         padding: 1rem;
@@ -28,195 +30,121 @@
         background-color: #fff;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
-    .carrito-total h2, .carrito-pago h2 {
+
+    .carrito-total h2,
+    .carrito-pago h2 {
         color: #000;
     }
+
     .carrito-item h2 {
         color: #000;
         font-size: 1.5rem;
     }
+
     .carrito-item p {
         color: #666;
     }
-    .carrito-item .btn, .carrito-item input[type="submit"] {
-        background-color: #000;
-        border: none;
-        color: #fff;
-        padding: 0.5rem 1rem;
-        border-radius: 0.25rem;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-    .carrito-item .btn:hover, .carrito-item input[type="submit"]:hover {
-        background-color: #ffcc00;
-    }
+
     .carrito-item .form-control {
         max-width: 80px;
         margin-right: 0.5rem;
     }
-    .carrito-item .btn-danger {
-        background-color: transparent;
-        color: #dc3545;
-        border: none;
-        font-size: 1.5rem;
-        padding: 0;
-        cursor: pointer;
-        transition: color 0.3s ease;
-    }
-    .carrito-item .btn-danger:hover {
-        color: #ff6666;
-    }
+
     .carrito-pago .btn {
-        background-color: #000;
-        color: #fff;
         padding: 0.75rem 1.5rem;
         border-radius: 0.25rem;
         cursor: pointer;
         transition: background-color 0.3s ease;
         width: 100%;
     }
-    .carrito-pago .btn:hover {
-        background-color: #ffcc00;
+
+    .carrito-item img {
+        max-width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 0.5rem;
     }
+    
 </style>
 
 {% endblock disenos %}
 
 {% block cuerpo %}
 
-<style>
-    .carrito-item {
-        border: 1px solid #ddd;
-        border-radius: 0.5rem;
-        padding: 1rem;
-        margin-bottom: 1rem;
-        background-color: #fff;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-    .carrito-total, .carrito-pago {
-        border: 1px solid #ddd;
-        border-radius: 0.5rem;
-        padding: 1rem;
-        margin-bottom: 1rem;
-        background-color: #fff;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-    .carrito-total h2, .carrito-pago h2 {
-        color: #000;
-    }
-    .carrito-item h2 {
-        color: #000;
-        font-size: 1.5rem;
-    }
-    .carrito-item p {
-        color: #666;
-    }
-    .carrito-item .btn, .carrito-item input[type="submit"] {
-        background-color: #000;
-        border: none;
-        color: #fff;
-        padding: 0.5rem 1rem;
-        border-radius: 0.25rem;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-    .carrito-item .btn:hover, .carrito-item input[type="submit"]:hover {
-        background-color: #ffcc00;
-    }
-    .carrito-item .form-control {
-        max-width: 80px;
-        margin-right: 0.5rem;
-    }
-    .carrito-item .btn-danger {
-        background-color: transparent;
-        border: none;
-        font-size: 1.5rem;
-        padding: 0;
-        cursor: pointer;
-        transition: color 0.3s ease;
-    }
-
-    .carrito-pago .btn {
-        background-color: #000;
-        color: #fff;
-        padding: 0.75rem 1.5rem;
-        border-radius: 0.25rem;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        width: 100%;
-    }
-    .carrito-pago .btn:hover {
-        background-color: #ffcc00;
-    }
-    .carrito-item img {
-        width: 100%;
-        max-width: 150px;
-        height: 150px;
-        object-fit: cover;
-        border-radius: 0.5rem;
-    }
-</style>
-
 <section class="container my-5">
     {% if carrito %}
-        <div class="row">
-            <!-- Items del carrito a la izquierda -->
-            <div class="col-md-8">
-                {% for i in carrito %}
-                    <div class="row carrito-item align-items-center">
-                        <div class="col-md-4">
-                            <img src="http://localhost:8000{{ i.producto.foto_prod }}" alt="No hay imagen disponible" class="img-fluid">
-                        </div>
-                        <div class="col-md-4 d-flex flex-column justify-content-center">
+    <div class="row">
+        <!-- Items del carrito a la izquierda -->
+        <div class="col-md-8">
+            {% for i in carrito %}
+            <div class="carrito-item row align-items-center">
+                <div class="col-md-4 text-center">
+                    <img src="http://localhost:8000{{ i.producto.foto_prod }}" alt="No hay imagen disponible"
+                        class="img-fluid">
+                </div>
+                
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-8">
                             <h2>{{ i.producto.nombre_prod }}</h2>
-                            <p class="mb-0">CLP ${{ i.subtotal }}</p>
-                            <p class="mb-0">USD ${{ i.subtotal|divide_by:dolar|floatformat:2 }} </p>
                         </div>
-                        <div class="col-md-4 d-flex flex-column justify-content-center align-items-end">
-                            <form name="contador" method="POST" action="{% url 'cambiarCantidad' i.id_detalle%}" class="d-flex align-items-center mb-2">
+                        <div class="col-md-4">
+                            <p class="mb-0">CLP ${{ i.subtotal }}</p>
+                            <p class="mb-0">USD ${{ i.subtotal|divide_by:dolar|floatformat:2 }}</p>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-10">
+                            <form name="contador" method="POST" action="{% url 'cambiarCantidad' i.id_detalle%}">
                                 {% csrf_token %}
-                                <input type="number" min="1" value="{{ i.cantidad }}" name="nueva_cantidad_{{ i.id_detalle }}" class="form-control">
+                                <input type="number" min="1" value="{{ i.cantidad }}" name="nueva_cantidad_{{ i.id_detalle }}" class="form-control d-inline-block">
                                 <input type="submit" value="Actualizar" class="btn btn-dark ml-2">
                             </form>
-                            <form name="borrar-form" method="POST" action="{% url 'sacarDelCarro' i.id_detalle%}">
+                        </div>
+                        
+                        <div class="col-md-2 text-center">
+                            <form name="borrar-form" method="POST" action="{% url 'sacarDelCarro' i.id_detalle %}">
                                 {% csrf_token %}
                                 <input type="hidden" name="producto_id" value="{{ i.producto.id }}">
-                                <button type="submit" class="btn">
+                                <button type="submit" class="btn btn-danger">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </form>
                         </div>
+                        
                     </div>
-                {% endfor %}
-            </div>
-
-            <!-- Total y botón de pagar a la derecha -->
-            <div class="col-md-4">
-                <div class="carrito-total mb-3">
-                    <h5>Total de la compra: ${{ venta.total }}</h5>
-                </div>
-
-                <div class="carrito-total mb-3">
-                    <h5>Total en USD: ${{ venta.total|divide_by:dolar|floatformat:2 }}</h5>
-                </div>
-                
-                <div class="carrito-pago">
-                    <a href="{% url 'mostrarIrPagar' venta.total %}" class="btn">Pagar con Webpay</a>
                 </div>
             </div>
+            {% endfor %}
         </div>
-    {% else %}
-    <div class="container">
-        <div class="card text-center">
-            <div class="card-body">
-                <a href="{% url 'mostrarIndex' %}"><img src="{% static 'core/img/carrito.png' %}"" class="card-img-top w-25" alt="Carrito de Compras"></a>
-                <h5 class="card-title mt-4">No se tienen productos en el carrito</h5>
-                <p class="card-text">Tu carrito de compras está vacío. ¡Explora nuestra tienda y encuentra los productos que necesitas!</p>
-                <a href="{% url 'mostrarIndex' %}" class="btn btn-primary">Volver a la tienda</a>
+        <!-- Total y botón de pagar a la derecha -->
+        <div class="col-md-4">
+            <div class="carrito-total mb-6">
+                <h5>Total a pagar en CLP: ${{ venta.total }}</h5>
+                <h5>Total a pagar en USD: ${{ venta.total|divide_by:dolar|floatformat:2 }}</h5>
+            </div>
+
+            <div class="carrito-pago">
+                <a href="{% url 'mostrarIrPagar' venta.total %}" class="btn">Pagar con Webpay</a>
             </div>
         </div>
     </div>
-        {% endif %}
+    {% else %}
+    <div class="container text-center">
+        <div class="card">
+            <div class="card-body">
+                <a href="{% url 'mostrarIndex' %}">
+                    <img src="{% static 'core/img/carrito.png' %}" class="card-img-top w-25" alt="Carrito de Compras">
+                </a>
+                <h5 class="card-title mt-4">Tu carrito está vacío</h5>
+                <p class="card-text">No tienes productos en tu carrito de compras. ¡Explora nuestra tienda y encuentra
+                    los productos que necesitas!</p>
+                <a href="{% url 'mostrarIndex' %}" class="btn btn-primary mt-3">Volver a la tienda</a>
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
 </section>
 
 

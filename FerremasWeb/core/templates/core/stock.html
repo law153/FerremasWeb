@@ -6,28 +6,28 @@
 {% endblock titulo %}
 
 {% block disenos %}
-<link rel="stylesheet" type="text/css" href="{% static  'core/css/nuevocss.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static  'core/css/cssgrupo2.css'%}">
 {% endblock disenos %}
 
 {% block cuerpo %}
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title text-center">Stock inventario</h5>
-                    <form method="POST" action="{% url 'buscarStock' %}" enctype="application/x-www-form-urlencoded"
-                        class="mb-3">
+            <div class="card border-0 shadow-lg rounded-lg">
+                <div class="card-body p-4">
+                    <h4 class="card-title text-center mb-4">Stock Inventario</h4>
+                    <form method="POST" action="{% url 'buscarStock' %}" enctype="application/x-www-form-urlencoded" class="mb-4">
                         {% csrf_token %}
-                        <div class="input-group">
+                        <div class="input-group mb-3">
                             <label for="codigo_producto" class="input-group-text">Código de Producto:</label>
-                            <input type="text" id="codigo_producto" name="codigo_producto" class="form-control"
-                                placeholder="Código de Producto" required>
-                            <button type="submit" class="btn btn-dark">Buscar Stock</button>
+                            <input type="text" id="codigo_producto" name="codigo_producto" class="form-control" placeholder="Código de Producto" required>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-dark btn-lg">Buscar Stock</button>
                         </div>
                     </form>
                     {% if stock %}
-                    <div class="alert alert-success" role="alert">
+                    <div class="alert alert-success text-center" role="alert">
                         Stock Disponible: {{ stock.stock_total }}
                     </div>
                     {% endif %}
@@ -36,6 +36,7 @@
         </div>
     </div>
 </div>
+
 
 {% endblock cuerpo %}
 

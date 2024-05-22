@@ -7,12 +7,12 @@
 {% endblock titulo %}
 
 {% block disenos %}
-<link rel="stylesheet" type="text/css" href="{% static  'core/css/nuevocss.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static  'core/css/cssgrupo2.css'%}">
 <style>
     .fixed-size-img {
-        width: 400px; 
-        height: 400px; 
-        object-fit: cover; 
+        width: 400px;
+        height: 400px;
+        object-fit: cover;
     }
 </style>
 {% endblock disenos %}
@@ -21,62 +21,54 @@
 
 <!-- Detalles del producto -->
 
-<section class="Productos my-5">
+<section class="productos my-5">
     <div class="container">
-        <div class="container1 border rounded p-3">
-            {% for p in producto%}
-            <div class="row">
+        {% for p in producto %}
+        <div class="card mb-4">
+            <div class="row g-0">
                 <div class="col-md-6">
-                    <img src="{{ p.foto_prod }}" alt="Imagen del producto" class="img-fluid fixed-size-img">
+                    <img src="{{ p.foto_prod }}" alt="Imagen del producto" class="img-fluid rounded-start fixed-size-img">
                 </div>
                 <div class="col-md-6">
-                    {% if rol == 2 %}
-                    <h2>Código del producto: {{ p.cod_prod }}</h2>
-                    {% endif %}
-                    <h2>{{ p.nombre_prod }}</h2>
-                    <p class="text-muted">{{ p.marca }}</p>
-                    <strong>Descripción:</strong> {{ p.descripcion }}
-                    <br><br>
-                    <strong>Stock:</strong> {{ stock.stock_total }}
-                    <br><br>
-                    <strong>Precio en CLP</strong>
-                    <p>${{ p.precio }}</p>
-                    <strong>Precio en USD</strong>
-                    <p>${{ p.precio|divide_by:dolar|floatformat:2 }}</p>
+                    <div class="card-body">
+                        {% if rol == 2 %}
+                        <p class="text-muted">Código del producto: {{ p.cod_prod }}</p>
+                        {% endif %}
+                        <h2 class="card-title">{{ p.nombre_prod }}</h2>
+                        <p class="text-muted">{{ p.marca }}</p>
+                        <p><strong>Descripción:</strong> {{ p.descripcion }}</p>
+                        <p><strong>Stock:</strong> {{ stock.stock_total }}</p>
+                        <p><strong>Precio en CLP:</strong> ${{ p.precio }}</p>
+                        <p><strong>Precio en USD:</strong> ${{ p.precio|divide_by:dolar|floatformat:2 }}</p>
 
-                    {% if rol == 0 %}
-                    <a href="{% url 'mostrarLogin' %}" class="btn btn-dark">Iniciar sesión para comprar</a>
-                    {% endif %}
-                    {% if rol == 1 %}
-                    <form action="{% url 'agregarAlCarrito' %}" method="POST">
-                        {% csrf_token %}
-                        <button class="btn btn-dark">Agregar al carrito</button>
-                        <input type="hidden" name="codigo" value="{{ p.cod_prod }}">
-                    </form>
-                    {% endif %}
-                    {% if rol == 4 %}
-                    <strong>Modificar Stock</strong>  
-                    <div class="btn-group" role="group" aria-label="Añadir o quitar stock">
-                        <form name="sumar" id="boton-cant1" method="POST" action="{% url 'sumarStock' p.cod_prod%}"
-                            class="d-flex align-items-center p-2">
+                        {% if rol == 0 %}
+                        <a href="{% url 'mostrarLogin' %}" class="btn btn-dark">Iniciar sesión para comprar</a>
+                        {% endif %}
+                        {% if rol == 1 %}
+                        <form action="{% url 'agregarAlCarrito' %}" method="POST">
                             {% csrf_token %}
-                            <input type="number" min="1" value="1" name="agregar" id="agregar"
-                                class="form-control mr-2">
-                            <button type="submit" class="btn">Agregar</button>
+                            <button class="btn btn-dark">Agregar al carrito</button>
+                            <input type="hidden" name="codigo" value="{{ p.cod_prod }}">
                         </form>
-                    
-                        
+                        {% endif %}
+                        {% if rol == 4 %}
+                        <div class="mt-4">
+                            <p><strong>Modificar Stock:</strong></p>
+                            <form name="sumar" method="POST" action="{% url 'sumarStock' p.cod_prod %}" class="d-flex align-items-center">
+                                {% csrf_token %}
+                                <input type="number" min="1" value="1" name="agregar" id="agregar" class="form-control mr-2" style="max-width: 100px;">
+                                <button type="submit" class="btn btn-dark">Agregar</button>
+                            </form>
+                        </div>
+                        {% endif %}
                     </div>
-                    
-
-                    {% endif %}
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
-    <br><br><br><br>
 </section>
-{% endfor %}
+
 {% endblock cuerpo %}
 
 {% block js %}

@@ -6,7 +6,7 @@
 {% endblock titulo %}
 
 {% block disenos %}
-<link rel="stylesheet" type="text/css" href="{% static  'core/css/nuevocss.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static  'core/css/cssgrupo2.css'%}">
 {% endblock disenos %}
 
 {% block cuerpo %} 
@@ -14,17 +14,17 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card">
-                <div class="card-header bg-dark text-white text-center">
-                    <h5 class="mb-0">Confirmación de Pago</h5>
+            <div class="card border-0 shadow-lg rounded-lg">
+                <div class="card-header bg-black text-white text-center py-4 rounded-top">
+                    <h4 class="mb-0">Confirmación de Pago</h4>
                 </div>
-                <div class="card-body">
-                    <h6 class="card-title text-center">Total de la compra: ${{ total }}</h6>
+                <div class="card-body p-4">
+                    <h5 class="card-title text-center mb-4">Total de la compra: ${{ total }}</h5>
                     <form method="POST" action="{{ url }}">
                         {% csrf_token %}
                         <input type="hidden" name="token_ws" value="{{ token }}">
-                        <div class="text-center">
-                            <button type="submit" class="btn">Pagar</button>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-lg">Pagar</button>
                         </div>
                     </form>
                 </div>
@@ -32,6 +32,9 @@
         </div>
     </div>
 </div>
+
+
+
 
 {% endblock cuerpo %}
 

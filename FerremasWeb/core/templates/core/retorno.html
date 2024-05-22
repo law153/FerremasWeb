@@ -6,7 +6,7 @@
 {% endblock titulo %}
 
 {% block disenos %}
-<link rel="stylesheet" type="text/css" href="{% static  'core/css/nuevocss.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static  'core/css/cssgrupo2.css'%}">
 {% endblock disenos %}
 
 {% block cuerpo %}
@@ -14,34 +14,28 @@
 
 <br>
 
-<div class="container">
-    <div class="card text-center">
+<div class="container mt-5">
+    <div class="card text-center border-0 shadow-lg rounded-lg">
         <div class="card-body">
-            <a><img src="{% static 'core/img/good.png' %}"" class=" card-img-top w-25" alt="Pago correcto"></a>
-            <h5 class="card-title mt-4">Transacción Exitosa</h5>
-            <div class="row mb-3">
-                <div class="col-md-12 text-center">
-                    <strong> Orden de compra:</strong>
-                    <p>{{ data.buy_order }}
-                    <p>
-                </div>
+            <img src="{% static 'core/img/correct.png' %}" class="card-img-top mx-auto d-block w-25 mb-4" alt="Pago correcto">
+            <h2 class="card-title mt-3 mb-4">Transacción Exitosa</h2>
+            <div class="mb-3">
+                <strong>Orden de compra:</strong>
+                <p>{{ data.buy_order }}</p>
             </div>
-            <div class="row mb-3">
-                <div class="col-md-12 text-center">
-                    <strong>Monto:</strong>
-                    <p>${{ data.amount }}</p>
-                </div>
+            <div class="mb-3">
+                <strong>Monto:</strong>
+                <p>${{ data.amount }}</p>
             </div>
-            <div class="row mb-3">
-                <div class="col-md-12 text-center">
-                    <strong>Fecha:</strong>
-                    <p> {{ data.transaction_date }}</p>
-                </div>
+            <div class="mb-3">
+                <strong>Fecha:</strong>
+                <p>{{ data.transaction_date }}</p>
             </div>
-            <a href="{% url 'mostrarIndex' %}" class="btn">Volver a la tienda</a>
+            <a href="{% url 'mostrarIndex' %}" class="btn btn-dark btn-lg mt-3">Volver a la tienda</a>
         </div>
     </div>
-</div><br>
+</div>
+br>
 
 
 {% endblock cuerpo %}

@@ -7,14 +7,14 @@
 {% endblock titulo %}
 
 {% block disenos %}
-<link rel="stylesheet" type="text/css" href="{% static  'core/css/nuevocss.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static  'core/css/cssgrupo2.css'%}">
 {% endblock disenos %}
 
 {% block cuerpo %}
 
 <section class="Productos my-5">
   <div class="container">
-    <h2 class="my-3">Todos los productos</h2>
+    <h2 class="my-3">Productos</h2>
   </div>
 
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
@@ -36,9 +36,8 @@
         <div class="card-body">
           <h5 class="card-title">{{ producto.nombre_prod }}</h5>
           <p class="text-muted">{{ producto.marca }}</p>
-          <p class="card-text">Precio EN CLP: ${{ producto.precio }}</p>
-          <p class="card-text">Precio en USD: ${{ producto.precio|divide_by:dolar|floatformat:2 }}</p>
-          <a href="{% url 'mostrarProducto' producto.cod_prod %}" class="btn btn-dark">Ver producto</a>
+          <p class="card-text">Precio CLP: ${{ producto.precio }}</p>
+          <p class="card-text">Precio USD: ${{ producto.precio|divide_by:dolar|floatformat:2 }}</p>
         </div>
       </div>
     </div>
